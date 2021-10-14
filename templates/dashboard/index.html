@@ -1,0 +1,50 @@
+{% load compress %}
+
+{% compress css %}
+    <link type="text/x-scss" href="{% static 'bootstrap/bootstrap.scss' %}" rel="stylesheet" media="screen">
+{% endcompress %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+
+	<div class="hero">
+		<div class="hero-wrap">
+			<h1>Users List</h1>
+			<p>view our users below, to filter the list by username use the input field below.</p>
+		</div>
+	</div>
+
+	<div class="input-wrap">
+		<input type="text" v-model="search" placeholder="Filter by username.." />
+	</div>
+
+	<div class="list-row user-list">
+		<div class="message">{{errormessage}}</div>
+		<div class="col" v-for="(user, key, index) in filteredList">
+			<div class="image-wrap">
+				<img src="https://placehold.it/125x125" />
+				<p>username: {{ user.username }}</p>
+			</div>
+			<div class="content-wrap">
+				<h2>{{ user.name }}</h2>
+				<p><span><i class="fa fa-paper-plane"></i>Email</span> {{ user.email }}</p>
+				<p><span class="break-col-title"><i class="fa fa-home"></i>Address</span> <span class="break-col">{{ user.address.suite }}<br/>{{ user.address.city }}<br/>{{ user.address.zipcode }}</span></p>
+
+				<p><a class="button" v-bind:target="'_blank'" v-bind:href="'https://www.google.com/maps/?q=' + user.address.geo.lat + ',' + user.address.geo.lng">view on map <i class="fa fa-map-marker"></i></a></p>
+
+				<p><span><i class="fa fa-phone"></i>Phone</span> {{ user.phone }}</p>
+				<p><span><i class="fa fa-globe"></i>Website</span> {{ user.website }}</p>
+				<p><span><i class="fa fa-building-o"></i>Company</span> {{ user.company.name }}</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
