@@ -21,7 +21,6 @@ def signup_view(request):
         login(request, user)
         return redirect('home')
     else:
-        print(form.errors)
         form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})
 
@@ -34,3 +33,8 @@ class DashboardView(generic.TemplateView):
         from django.contrib.auth.models import User
         context['users'] = User.objects.all()
         return context
+
+
+def apply_attendance(request, pk):
+    if request.method == "GET":
+        return render(request, 'registration/signup.html')
