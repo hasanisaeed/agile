@@ -23,7 +23,7 @@
                     <div class="container d-flex justify-content-center mt-5">
                         <div class="card">
 
-                            <a href="{% url 'attendance' pk=user.id %}">
+                            <a href="{% url 'attendance' pk=user.id %}?next={{ request.path }}">
                                 <div class="middle-container d-flex justify-content-between align-items-center mt-3 p-2">
                                     <div class="dollar-div px-3">
                                         <div class="round-div">
@@ -51,6 +51,20 @@
                                         <td>{{ user.last_login }}</td>
                                     </tr>
                                     </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <td colspan="100%">
+                                            {% if messages %}
+                                                <ul class="messages">
+                                                    {% for message in messages %}
+                                                        <li{% if message.tags %}
+                                                            class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    </tfoot>
 
                                 </table>
                             </div>

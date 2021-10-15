@@ -1,8 +1,13 @@
+from django.contrib import messages
+from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
+from django.utils.datetime_safe import datetime
 from django.views import generic
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
 
 from accounts.forms import SignUpForm
+from accounts.models import Attendance
 
 
 def signup_view(request):
@@ -37,4 +42,28 @@ class DashboardView(generic.TemplateView):
 
 def apply_attendance(request, pk):
     if request.method == "GET":
-        return render(request, 'registration/signup.html')
+        request.session['login_from'] = request.META.get('HTTP_REFERER', '/')
+        user = User.objects.get(pk=pk)
+        from django.urls import resolve
+        url = request.GET.get("next")
+
+        # If datetime is today and the time of attendance has not been set before.
+        from django.db.models import Q
+        last_attendance = Attendance.objects.filter(Q(user=user)).latest('enter')
+        if last_attendance.enter is not None:
+            if last_attendance.enter.day != datetime.today().day:
+                # Set the attendance time
+                new_attendance = Attendance.objects.create(user=user,
+                                                       enter=datetime.now())
+                messages.success(request, "حصور ثبت شد.")
+
+            else:
+                # toggle: then check for exit time.
+                if last_attendance.exit is None:
+                    attendance_update = Attendance.objects.filter(id=last_attendance.id).update(exit=datetime.now())
+                    messages.success(request, "ساعت خروج ثبت شد.")
+                else:
+                    messages.error(request, "قبلا ساعت ورود/خروج ثبت شده است.")
+
+        resolve(url)
+        return HttpResponseRedirect(url)
