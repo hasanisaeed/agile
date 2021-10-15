@@ -48,13 +48,12 @@ def apply_attendance(request, pk):
         url = request.GET.get("next")
 
         # If datetime is today and the time of attendance has not been set before.
-        from django.db.models import Q
-        last_attendance = Attendance.objects.filter(Q(user=user)).latest('enter')
+        last_attendance = Attendance.objects.filter(user=user).latest('enter')
         if last_attendance.enter is not None:
             if last_attendance.enter.day != datetime.today().day:
                 # Set the attendance time
                 new_attendance = Attendance.objects.create(user=user,
-                                                       enter=datetime.now())
+                                                           enter=datetime.now())
                 messages.success(request, "حصور ثبت شد.")
 
             else:
@@ -64,6 +63,11 @@ def apply_attendance(request, pk):
                     messages.success(request, "ساعت خروج ثبت شد.")
                 else:
                     messages.error(request, "قبلا ساعت ورود/خروج ثبت شده است.")
+        else:
+            # Set the attendance time
+            new_attendance = Attendance.objects.create(user=user,
+                                                       enter=datetime.now())
+            messages.success(request, "حصور ثبت شد.")
 
         resolve(url)
         return HttpResponseRedirect(url)
