@@ -22,24 +22,32 @@
                 <div class="profile-card-wrapper">
                     <div class="container d-flex justify-content-center mt-5">
                         <div class="card">
-                            <div class="top-container"><img src="https://avatars.githubusercontent.com/u/20496196?v=4"
-                                                            class="img-fluid profile-image" width="70">
-                                <div class="ml-3">
-                                    <h5 class="name">{{ user.first_name }} {{ user.last_name }}</h5>
-                                    <p class="mail"> {{ user.user_name }}</p>
-                                </div>
-                            </div>
                             <div class="middle-container d-flex justify-content-between align-items-center mt-3 p-2">
                                 <div class="dollar-div px-3">
-                                    <div class="round-div"><i class="fa fa-dollar dollar"></i></div>
+                                    <div class="round-div">
+                                        <img src="https://avatars.githubusercontent.com/u/20496196?v=4"
+                                             class="img-fluid profile-image" width="70">
+                                    </div>
                                 </div>
                                 <div class="d-flex flex-column text-right mr-2"><span
                                         class="current-balance">{{ user.username }}</span> <span class="amount"><span
-                                        class="dollar-sign">$</span>1476</span></div>
+                                        class="dollar-sign"></span>{{ user.first_name }} {{ user.last_name }}</span>
+                                </div>
                             </div>
-                            <div class="recent-border mt-4"><span class="recent-orders">{{ user.email}}</span></div>
-                            <div class="wishlist-border pt-2"><span class="wishlist">امتیاز</span></div>
-                            <div class="fashion-studio-border pt-2"><span class="fashion-studio">مشاهده پروفایل</span>
+                            <div class="pt-2">
+                                <table class="table ">
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row">ورود:</th>
+                                        <td>{{ user.last_login }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">خروج:</th>
+                                        <td>{{ user.last_login }}</td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
                             </div>
                         </div>
                     </div>

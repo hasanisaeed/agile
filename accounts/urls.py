@@ -6,7 +6,6 @@ from .views import DashboardView, signup_view
 
 
 urlpatterns = [
-    path('signup/', signup_view, name="signup"),
-    # path('signup/', SignUpView.as_view(), name='signup'),
+    path('signup/', signup_view, name='signup'),
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
 ]
