@@ -75,12 +75,14 @@
                 <strong>شما اجازه دسترسی به این بخش را ندارید.</strong>
             {% endif %}
         {% else %}
+            <div style="direction: rtl"><
             <div class="alert alert-info" role="alert">
                 <strong>دسترسی:</strong> ابتدا وارد سامانه شوید.
-            </div> <br/>
+            </div> <br/> <br/>
             <a href="{% url 'login' %}">
                 <button type="button" class="btn btn-primary btn-mat-primary">ورود به سامانه</button>
             </a>
+            </div>
         {% endif %}
-    </div>
+        </div>
 {% endblock %}
