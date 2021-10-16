@@ -5,3 +5,4 @@ env/
 note
 *.log
 migrations
+*.pyc
