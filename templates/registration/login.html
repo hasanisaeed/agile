@@ -1,12 +1,26 @@
 {% extends 'base.html' %}
 
-{% block title %}Log In{% endblock %}
+{% block title %}ورود{% endblock %}
 
 {% block content %}
-<h2>Log In</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Log In</button>
-</form>
+
+
+    <div id="login" class="container">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="login well well-small">
+                    <div class="center">
+                        <img src="http://placehold.it/250x100&text=Logo" alt="logo">
+                    </div>
+                    <form style="" class="login-form" id="UserLoginForm" method="post" accept-charset="utf-8">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="control-group">
+                            <input class="btn btn-primary btn-large btn-block" type="submit" value="ورود به سایت">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
