@@ -75,8 +75,12 @@
                 <strong>شما اجازه دسترسی به این بخش را ندارید.</strong>
             {% endif %}
         {% else %}
-            <p>ابتدا وارد سامانه شوید.</p>
-            <a href="{% url 'login' %}">Log In</a>
+            <div class="alert alert-info" role="alert">
+                <strong>دسترسی:</strong> ابتدا وارد سامانه شوید.
+            </div> <br/>
+            <a href="{% url 'login' %}">
+                <button type="button" class="btn btn-primary btn-mat-primary">ورود به سامانه</button>
+            </a>
         {% endif %}
     </div>
 {% endblock %}
