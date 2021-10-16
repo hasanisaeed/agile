@@ -5,18 +5,18 @@
 {% block content %}
 
 
-    <div id="login" class="container">
+    <div id="login" class="container" style="direction: rtl">
         <div class="row-fluid">
             <div class="span12">
                 <div class="login well well-small">
                     <div class="center">
-                        <img src="http://placehold.it/250x100&text=Logo" alt="logo">
+                        <img src="https://avatars.githubusercontent.com/u/78335656?s=200&v=4" alt="logo">
                     </div>
                     <form style="" class="login-form" id="UserLoginForm" method="post" accept-charset="utf-8">
                         {% csrf_token %}
                         {{ form.as_p }}
                         <div class="control-group">
-                            <input class="btn btn-primary btn-large btn-block" type="submit" value="ورود به سایت">
+                            <input class="btn btn-primary" type="submit" value="ورود به سایت">
                         </div>
                     </form>
                 </div>
