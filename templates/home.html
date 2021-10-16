@@ -9,75 +9,74 @@
     {% endcompress %}
 
 {% endblock %}
-{% block title %}My Tasks{% endblock %}
+{% block title %}لیست کارمندان{% endblock %}
 
 {% block content %}
-    <div id="vue-app" class="row justify-content-center bg-white p-5 shadow rounded">
 
-        <h1>صفحه داشبورد</h1>
+    <div class="row bg-white p-1 shadow rounded justify-content-center">
         {% if user.is_authenticated %}
-            سلام {{ user.username }}!
-            <p><a href="{% url 'logout' %}">Log Out</a></p>
-            <p><a href="{% url 'password_reset' %}">Reset Password</a></p>
-            {% for user in users %}
-                <div class="profile-card-wrapper">
-                    <div class="container d-flex justify-content-center mt-5">
-                        <div class="card">
+            {% if user.is_superuser %}
+                {% for user in users %}
+                    <div class="profile-card-wrapper">
+                        <div class="container d-flex justify-content-center mt-5">
+                            <div class="card">
 
-                            <a href="{% url 'attendance' pk=user.id %}?next={{ request.path }}">
-                                <div class="middle-container d-flex justify-content-between align-items-center mt-3 p-2">
-                                    <div class="dollar-div px-3">
-                                        <div class="round-div">
-                                            <img src="https://avatars.githubusercontent.com/u/20496196?v=4"
-                                                 class="img-fluid profile-image" width="70">
+                                <a href="{% url 'attendance' pk=user.id %}?next={{ request.path }}">
+                                    <div class="middle-container d-flex justify-content-between align-items-center mt-3 p-2">
+                                        <div class="dollar-div px-3">
+                                            <div class="round-div">
+                                                <img src="https://avatars.githubusercontent.com/u/20496196?v=4"
+                                                     class="img-fluid profile-image" width="70">
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-column text-right mr-2"><span
+                                                class="current-balance">{{ user.username }}</span> <span
+                                                class="amount"><span
+                                                class="dollar-sign"></span>{{ user.name }}</span>
                                         </div>
                                     </div>
-                                    <div class="d-flex flex-column text-right mr-2"><span
-                                            class="current-balance">{{ user.username }}</span> <span
-                                            class="amount"><span
-                                            class="dollar-sign"></span>{{ user.name }}</span>
-                                    </div>
+                                </a>
+
+                                <div class="pt-2">
+                                    <table class="table ">
+                                        <tbody>
+                                        <tr>
+                                            <th scope="row">ورود:</th>
+                                            <td>{{ user.enter }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">خروج:</th>
+                                            <td>{{ user.exit }}</td>
+                                        </tr>
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <td colspan="100%">
+                                                {% if messages %}
+                                                    <ul class="messages">
+                                                        {% for message in messages %}
+                                                            <li{% if message.tags %}
+                                                                class="{{ message.tags }}"{% endif %}>{{ message | text }}</li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        </tfoot>
+
+                                    </table>
                                 </div>
-                            </a>
-
-                            <div class="pt-2">
-                                <table class="table ">
-                                    <tbody>
-                                    <tr>
-                                        <th scope="row">ورود:</th>
-                                        <td>{{ user.enter }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">خروج:</th>
-                                        <td>{{ user.exit }}</td>
-                                    </tr>
-                                    </tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <td colspan="100%">
-                                            {% if messages %}
-                                                <ul class="messages">
-                                                    {% for message in messages %}
-                                                        <li{% if message.tags %}
-                                                            class="{{ message.tags }}"{% endif %}>{{ message | text }}</li>
-                                                    {% endfor %}
-                                                </ul>
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                    </tfoot>
-
-                                </table>
                             </div>
                         </div>
                     </div>
+                {% endfor %}
                 </div>
-            {% endfor %}
-            </div>
+            {% else %}
+                <strong>شما اجازه دسترسی به این بخش را ندارید.</strong>
+            {% endif %}
         {% else %}
             <p>ابتدا وارد سامانه شوید.</p>
             <a href="{% url 'login' %}">Log In</a>
         {% endif %}
+    </div>
 {% endblock %}
-
-</div>

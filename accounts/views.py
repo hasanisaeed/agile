@@ -45,8 +45,8 @@ class DashboardView(generic.TemplateView):
                     'last_login': user.last_login}
             try:
                 attendance = user.attendance.filter(user=user).latest('enter')
-                info['enter'] = attendance.enter
-                info['exit'] = attendance.exit
+                info['enter'] = attendance.enter.strftime('%H:%M:%S')
+                info['exit'] = attendance.exit.strftime('%H:%M:%S')
             except:
                 info['enter'] = '',
                 info['exit'] = ''
