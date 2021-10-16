@@ -36,7 +36,23 @@ class DashboardView(generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super(DashboardView, self).get_context_data(**kwargs)
         from django.contrib.auth.models import User
-        context['users'] = User.objects.all()
+        users = User.objects.all()
+
+        user_info = []
+        for user in users:
+            info = {'id': user.id,
+                    'name': user.get_full_name(),
+                    'last_login': user.last_login}
+            try:
+                attendance = user.attendance.filter(user=user).latest('enter')
+                info['enter'] = attendance.enter
+                info['exit'] = attendance.exit
+            except:
+                info['enter'] = '',
+                info['exit'] = ''
+            user_info.append(info)
+
+        context['users'] = user_info
         return context
 
 
@@ -70,6 +86,7 @@ def apply_attendance(request, pk):
             # Set the attendance time
             new_attendance = Attendance.objects.create(user=user,
                                                        enter=datetime.now())
+            print(">> OK2")
             messages.success(request, {'user': pk,
                                        'text': 'حصور ثبت شد.'})
 

@@ -35,7 +35,7 @@
                                     <div class="d-flex flex-column text-right mr-2"><span
                                             class="current-balance">{{ user.username }}</span> <span
                                             class="amount"><span
-                                            class="dollar-sign"></span>{{ user.first_name }} {{ user.last_name }}</span>
+                                            class="dollar-sign"></span>{{ user.name }}</span>
                                     </div>
                                 </div>
                             </a>
@@ -45,11 +45,11 @@
                                     <tbody>
                                     <tr>
                                         <th scope="row">ورود:</th>
-                                        <td>{{ user.last_login }}</td>
+                                        <td>{{ user.enter }}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">خروج:</th>
-                                        <td>{{ user.last_login }}</td>
+                                        <td>{{ user.exit }}</td>
                                     </tr>
                                     </tbody>
                                     <tfoot>
