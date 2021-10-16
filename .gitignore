@@ -1,5 +1,7 @@
-.DS_Store
-*.pyc
-.venv
+db.sqlite3
+env/
 .idea
+.venv
 note
+*.log
+migrations
