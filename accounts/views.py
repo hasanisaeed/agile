@@ -13,7 +13,6 @@ from accounts.models import Attendance
 def signup_view(request):
     form = SignUpForm(request.POST)
     if form.is_valid():
-        print(">>> TEST")
         user = form.save()
         user.refresh_from_db()
         user.profile.first_name = form.cleaned_data.get('first_name')
@@ -44,14 +43,10 @@ class DashboardView(generic.TemplateView):
                     'name': user.get_full_name(),
                     'last_login': user.last_login}
             try:
-                attendance = user.attendance.filter(user=user).latest('enter')
-                info['enter'] = attendance.enter.strftime('%H:%M:%S')
-                info['exit'] = attendance.exit.strftime('%H:%M:%S')
-            except:
-                info['enter'] = '',
-                info['exit'] = ''
+                info['enter'], info['exit'], _ = attendance_helper(user)
+            except KeyError:
+                info['enter'], info['exit'] = '', ''
             user_info.append(info)
-
         context['users'] = user_info
         return context
 
@@ -64,31 +59,37 @@ def apply_attendance(request, pk):
         url = request.GET.get("next")
         try:
             # If datetime is today and the time of attendance has not been set before.
-            last_attendance = Attendance.objects.filter(user=user).latest('enter')
-            if last_attendance.enter is not None:
-                if last_attendance.enter.day != datetime.today().day:
+            enter_time, exit_time, attendance_id = attendance_helper(user)
+            if enter_time is not None:
+                if enter_time.day != datetime.today().day:
                     # Set the attendance time
-                    new_attendance = Attendance.objects.create(user=user,
-                                                               enter=datetime.now())
+                    Attendance.objects.create(user=user,
+                                              enter=datetime.now())
                     messages.success(request, {'user': pk,
                                                'text': 'حصور ثبت شد.'})
 
                 else:
                     # toggle: then check for exit time.
-                    if last_attendance.exit is None:
-                        attendance_update = Attendance.objects.filter(id=last_attendance.id).update(exit=datetime.now())
+                    if exit_time is None:
+                        Attendance.objects.filter(id=attendance_id).update(exit=datetime.now())
                         messages.success(request, {'user': pk,
                                                    'text': 'ساعت خروج ثبت شد.'})
                     else:
                         messages.error(request, {'user': pk,
-                                                 'text': 'سقبلا ساعت ورود/خروج ثبت شده است.'})
-        except Exception as e:
+                                                 'text': 'قبلا ساعت ورود/خروج ثبت شده است.'})
+        except KeyError:
             # Set the attendance time
-            new_attendance = Attendance.objects.create(user=user,
-                                                       enter=datetime.now())
-            print(">> OK2")
+            Attendance.objects.create(user=user,
+                                      enter=datetime.now())
             messages.success(request, {'user': pk,
                                        'text': 'حصور ثبت شد.'})
 
         resolve(url)
         return HttpResponseRedirect(url)
+
+
+def attendance_helper(user: User):
+    attendance = user.attendance.filter(user=user).latest('enter')
+    enter_time = attendance.enter.strftime('%H:%M:%S')
+    exit_time = attendance.exit.strftime('%H:%M:%S')
+    return enter_time, exit_time, attendance.id
