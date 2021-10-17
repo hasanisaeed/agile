@@ -61,7 +61,7 @@ def apply_attendance(request, pk):
             # If datetime is today and the time of attendance has not been set before.
             enter_time, exit_time, attendance_id = attendance_helper(user)
             if enter_time is not None:
-                if enter_time.day != datetime.today().day:
+                if enter_time != datetime.today().day:
                     # Set the attendance time
                     Attendance.objects.create(user=user,
                                               enter=datetime.now())
