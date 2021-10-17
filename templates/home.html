@@ -19,7 +19,7 @@
                 {% for user in users %}
                     <div class="profile-card-wrapper">
                         <div class="container d-flex justify-content-center mt-5">
-                            <div class="card">
+                            <div class="{{ user.status }}">
 
                                 <a href="{% url 'attendance' pk=user.id %}?next={{ request.path }}">
                                     <div class="middle-container d-flex justify-content-between align-items-center mt-3 p-2">

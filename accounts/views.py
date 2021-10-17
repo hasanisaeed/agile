@@ -41,7 +41,8 @@ class DashboardView(generic.TemplateView):
         for user in users:
             info = {'id': user.id,
                     'name': user.get_full_name(),
-                    'last_login': user.last_login}
+                    'last_login': user.last_login,
+                    'status': get_status(user)}
             try:
                 info['enter'], info['exit'], _ = attendance_helper(user)
             except KeyError:
@@ -49,6 +50,22 @@ class DashboardView(generic.TemplateView):
             user_info.append(info)
         context['users'] = user_info
         return context
+
+
+NO_RECORD = 'card bg-dark text-white'
+ENTER_TIME_IS_REGISTERED = 'card bg-success'
+EXIT_TIME_IS_REGISTERED = 'card bg-danger text-white'
+ATTENDANCE_TIME_IS_RECORD = 'card bg-light'
+
+
+def get_status(user: User):
+    enter_time, exit_time, _ = attendance_helper(user)
+    if enter_time is not None:
+        if enter_time == datetime.today().day:
+            return ENTER_TIME_IS_REGISTERED
+        else:
+            return EXIT_TIME_IS_REGISTERED if exit_time is None else ATTENDANCE_TIME_IS_RECORD
+    return NO_RECORD
 
 
 def apply_attendance(request, pk):
