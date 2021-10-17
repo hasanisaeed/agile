@@ -6,3 +6,4 @@ note
 *.log
 migrations
 *.pyc
+static/CACHE
