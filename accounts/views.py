@@ -108,5 +108,5 @@ def apply_attendance(request, pk):
 def attendance_helper(user: User):
     attendance = user.attendance.filter(user=user).latest('enter')
     enter_time = attendance.enter.strftime('%H:%M:%S')
-    exit_time = attendance.exit.strftime('%H:%M:%S')
+    exit_time = '' # TODO attendance.exit.strftime('%H:%M:%S')
     return enter_time, exit_time, attendance.id
