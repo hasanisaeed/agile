@@ -8,12 +8,88 @@
             width: 100vw;
             height: 100vh;
         }
+        /* -------------------------------------------
+Animation CSS Begins Here:
+---------------------------------------------- */
+.ball {
+    position: relative;
+    z-index: 2;
+    height: 100px;
+    width: 100px;
+    margin: 0 auto;
+    background: var(--ball-solid);
+    background: var(--ball);
+    border-radius: 50%;
+}
+
+.ball-animated {
+    animation: bounce var(--animation-duration) ease-in 0s infinite alternate;
+}
+
+.ball-shadow {
+    position: relative;
+    z-index: 0;
+    height: 25px;
+    width: 100px;
+    margin: 385px auto 0;
+    background: var(--shadow);
+    border-radius: 50%;
+}
+
+.ball-shadow-animated {
+    animation: bounce-shadow var(--animation-duration) ease-in 0s infinite alternate;
+}
+
+@keyframes bounce {
+    0% {
+        background: var(--ball);
+        transform: translateY(0%) scaleY(1) scaleX(1);
+    }
+
+    25% {
+        background: var(--ball);
+        transform: translateY(5%) scaleY(1.10) scaleX(0.90);
+    }
+
+    90% {
+        background: var(--ball);
+        transform: translateY(390%) scaleY(1.10) scaleX(0.90);
+    }
+
+    92% {
+        background: var(--ball);
+        transform: translateY(400%) scaleY(1) scaleX(1);
+    }
+
+    100%{
+        background: var(--ball);
+        transform: translateY(412%) scaleY(0.75) scaleX(1.25);
+
+    }
+}
+
+@keyframes bounce-shadow {
+    0% {
+        transform: scaleY(1.15) scaleX(1.15);
+    }
+    92% {
+        transform: scaleY(0.70) scaleX(0.70);
+    }
+    100%{
+        transform: scaleY(0.70) scaleX(0.70);
+
+    }
+}
     </style>
     <!--[if lte IE 8]>
             <script src="{% static 'js/excanvas.js' %}"></script>
         <![endif]-->
 </head>
 <body>
+        <div class="ball-container">
+            <div class="ball" id="ball"></div>
+            <div class="ball-shadow" id="ball-shadow"></div>
+        </div>
 <h1>BurnDown Chart User by User</h1>
 		<canvas id="canvas" height="200" width="300"></canvas>
 {#<script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>#}
