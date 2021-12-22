@@ -12,6 +12,7 @@
 <canvas id="myChart" width="500" height="400"></canvas>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
 <script type="text/javascript">
     $.get('{% url "line_chart_json" %}', function (data) {
