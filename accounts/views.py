@@ -133,5 +133,5 @@ class LineChartJSONView(BaseLineChartView):
                 [87, 21, 94, 3, 90, 13, 65]]
 
 
-line_chart = TemplateView.as_view(template_name='performance.html')
+line_chart = TemplateView.as_view(template_name='performance2.html')
 line_chart_json = LineChartJSONView.as_view()
