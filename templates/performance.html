@@ -6,30 +6,14 @@
         body {
             background-color: #fcfcfc;
         }
-        .center-div {
-            position: absolute;
-            margin: auto;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #ccc;
-            border-radius: 3px;
-            padding: 15px;
-        }
     </style>
     <!--[if lte IE 8]>
             <script src="{% static 'js/excanvas.js' %}"></script>
         <![endif]-->
 </head>
 <body>
-<div class="center-div">
 <h1>BurnDown Chart User by User</h1>
-<canvas id="chart" width="auto" height="auto"></canvas>
-</div>
-
+<canvas id="chart" width="100vw" height="500"></canvas>
 {#<script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>#}
 {#<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js" ></script>#}
 <script src="{% static 'js/jquery-3.3.1.min.js' %}" ></script>
