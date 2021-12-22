@@ -7,3 +7,4 @@ note
 migrations
 *.pyc
 static/CACHE
+accounts/__pycache__
