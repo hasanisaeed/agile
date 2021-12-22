@@ -119,17 +119,17 @@ from chartjs.views.lines import BaseLineChartView
 class LineChartJSONView(BaseLineChartView):
     def get_labels(self):
         """Return 7 labels for the x-axis."""
-        return ["January", "February", "March", "April", "May", "June", "July"]
+        return ["شنبه", "یکشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه", "جمعه"]
 
     def get_providers(self):
         """Return names of datasets."""
-        return ["Central", "Eastside", "Westside"]
+        return ["سعید حسنی", "امین عامریان", "محسن باقری"]
 
     def get_data(self):
         """Return 3 datasets to plot."""
 
         return [[75, 44, 92, 11, 44, 95, 35],
-                [41, 92, 18, 3, 73, 87, 92],
+                [41, 92, 18, 30, 73, 87, 92],
                 [87, 21, 94, 3, 90, 13, 65]]
 
 
