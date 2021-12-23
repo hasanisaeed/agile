@@ -1,0 +1,86 @@
+@keyframes moveit {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: 100%
+    }
+}
+
+@keyframes bounce {
+    0% {
+        top: 0;
+        transform: scale(1, 1);
+    }
+    80% {
+        transform: scale(0.85, 1);
+    }
+    100% {
+        top: 120px;
+        transform: scale(1.2, 0.6);
+    }
+}
+
+@keyframes scaleit {
+    0% {
+        transform: scale(0.4, 0.1);
+        opacity: 0.3;
+    }
+    100% {
+        transform: scale(1, 0.2);
+    }
+}
+
+.container-ball {
+    position: absolute;
+    width: auto;
+    height: 200px;
+    margin-top: 10%;
+    right: 82px;
+    left: 0;
+}
+
+.ball-container {
+    position: absolute;
+    height: 200px;
+    width: 82px;
+    animation-name: moveit;
+    animation-duration: 8s;
+    animation-direction: alternate;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.ball {
+    position: absolute;
+    height: 80px;
+    width: 80px;
+    border-radius: 40px;
+    /*background: radial-gradient(at 20px 20px, rgba(191, 142, 250, 1) 0%, rgba(58, 16, 105, 1) 100%);*/
+    background-image: url("https://avatars.githubusercontent.com/u/20496196?v=4") ;
+      background-repeat: no-repeat;
+  background-position: 0% 0%;
+  background-size: 100% 100%;
+
+    box-shadow: inset -10px -10px 10px rgba(0, 0, 0, .6);
+    animation-name: bounce;
+    animation-duration: 0.5s;
+    animation-direction: alternate;
+    animation-timing-function: cubic-bezier(.5, 0, 1, .5);
+    animation-iteration-count: infinite;
+}
+
+.ball-shadow {
+    margin-top: 120px;
+    margin-left: -8px;
+    height: 100px;
+    width: 100px;
+    background-color: rgba(0, 0, 0, 0.6);
+    filter: blur(8px);
+    border-radius: 50px;
+    animation-name: scaleit;
+    animation-duration: 0.5s;
+    animation-direction: alternate;
+    animation-timing-function: cubic-bezier(.5, 0, 1, .5);
+    animation-iteration-count: infinite;
+}

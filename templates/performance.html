@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block stylesheet %}
+            <link type="text/css" href="{% static 'css/ball.css' %}" rel="stylesheet" />
     <style type="text/css">
         body {
             background-color: #fcfcfc;
@@ -48,6 +49,21 @@
 {% endblock %}
 
 {% block body %}
+    <div class="container-ball">
+  <div class="ball-container">
+    <div class="ball-shadow">
+    </div>
+    <div class="ball">
+    </div>
+  </div>
+  <div class="ball-container">
+    <div class="ball-shadow">
+    </div>
+    <div class="ball">
+    </div>
+  </div>
+</div>
+
     <div class="container">
         {% block content %}
             <h1>BurnDown Chart User by User</h1>
