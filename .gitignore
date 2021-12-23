@@ -8,3 +8,4 @@ migrations
 *.pyc
 static/CACHE
 accounts/__pycache__
+accounts/templatetags/__pycache__/
