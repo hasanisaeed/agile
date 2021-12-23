@@ -1,109 +1,76 @@
+{% extends 'base.html' %}
 {% load static %}
-<html>
-<head>
-    <title>Story Point Reports</title>
+
+{% block title %}
+    Burn Down Chart
+{% endblock %}
+{% block stylesheet %}
+
     <style type="text/css">
         body {
             background-color: #fcfcfc;
-            width: 100vw;
-            height: 100vh;
+            text-align: center;
+            margin: 0;
         }
-        /* -------------------------------------------
-Animation CSS Begins Here:
----------------------------------------------- */
-.ball {
-    position: relative;
-    z-index: 2;
-    height: 100px;
-    width: 100px;
-    margin: 0 auto;
-    background: var(--ball-solid);
-    background: var(--ball);
-    border-radius: 50%;
-}
 
-.ball-animated {
-    animation: bounce var(--animation-duration) ease-in 0s infinite alternate;
-}
+        .flex-container {
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-.ball-shadow {
-    position: relative;
-    z-index: 0;
-    height: 25px;
-    width: 100px;
-    margin: 385px auto 0;
-    background: var(--shadow);
-    border-radius: 50%;
-}
+        .row {
+            width: auto;
+        }
 
-.ball-shadow-animated {
-    animation: bounce-shadow var(--animation-duration) ease-in 0s infinite alternate;
-}
+        .flex-item {
+            padding: 5px;
+            margin: 10px;
+            line-height: 20px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
 
-@keyframes bounce {
-    0% {
-        background: var(--ball);
-        transform: translateY(0%) scaleY(1) scaleX(1);
-    }
-
-    25% {
-        background: var(--ball);
-        transform: translateY(5%) scaleY(1.10) scaleX(0.90);
-    }
-
-    90% {
-        background: var(--ball);
-        transform: translateY(390%) scaleY(1.10) scaleX(0.90);
-    }
-
-    92% {
-        background: var(--ball);
-        transform: translateY(400%) scaleY(1) scaleX(1);
-    }
-
-    100%{
-        background: var(--ball);
-        transform: translateY(412%) scaleY(0.75) scaleX(1.25);
-
-    }
-}
-
-@keyframes bounce-shadow {
-    0% {
-        transform: scaleY(1.15) scaleX(1.15);
-    }
-    92% {
-        transform: scaleY(0.70) scaleX(0.70);
-    }
-    100%{
-        transform: scaleY(0.70) scaleX(0.70);
-
-    }
-}
+        .item {
+            width: 80vw;
+            height: 80vh;
+        }
     </style>
+{% endblock %}
+
+{% block js_head %}
     <!--[if lte IE 8]>
             <script src="{% static 'js/excanvas.js' %}"></script>
         <![endif]-->
-</head>
-<body>
-        <div class="ball-container">
-            <div class="ball" id="ball"></div>
-            <div class="ball-shadow" id="ball-shadow"></div>
-        </div>
-<h1>BurnDown Chart User by User</h1>
-		<canvas id="canvas" height="200" width="300"></canvas>
-{#<script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>#}
-{#<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js" ></script>#}
-<script src="{% static 'js/jquery-3.3.1.min.js' %}" ></script>
-<script src="{% static 'js/chart.js' %}" ></script>
-<script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
-<script type="text/javascript">
-    $.get('{% url "line_chart_json" %}', function (data) {
-        var ctx = $("#canvas").get(0).getContext("2d");
-        new Chart(ctx, {
-            type: 'line', data: data
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% block content %}
+            <h1>BurnDown Chart User by User</h1>
+            <div class="flex-container">
+                <div class="row">
+                    <div class="flex-item">
+                        <canvas id="canvas" class="item"></canvas>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+{% endblock body %}
+{% block javascript %}
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/chart.js' %}"></script>
+    <script type="text/javascript">
+        $.get('{% url "line_chart_json" %}', function (data) {
+            var ctx = $("#canvas").get(0).getContext("2d");
+            new Chart(ctx, {
+                type: 'line', data: data
+            });
         });
-    });
-</script>
-</body>
-</html>
+    </script>
+{% endblock %}
+

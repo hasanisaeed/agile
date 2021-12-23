@@ -1,3 +1,4 @@
+from chartjs.views.lines import BaseLineChartView
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -33,6 +34,7 @@ class DashboardView(generic.TemplateView):
     template_name = 'home.html'
 
     def get_context_data(self, **kwargs):
+
         context = super(DashboardView, self).get_context_data(**kwargs)
         from django.contrib.auth.models import User
         users = User.objects.all()
@@ -45,7 +47,7 @@ class DashboardView(generic.TemplateView):
                     'status': get_status(user)}
             try:
                 info['enter'], info['exit'], _ = attendance_helper(user)
-            except KeyError:
+            except Attendance.DoesNotExist:
                 info['enter'], info['exit'] = '', ''
             user_info.append(info)
         context['users'] = user_info
@@ -59,12 +61,15 @@ ATTENDANCE_TIME_IS_RECORD = 'card bg-light'
 
 
 def get_status(user: User):
-    enter_time, exit_time, _ = attendance_helper(user)
-    if enter_time is not None:
-        if enter_time == datetime.today().day:
-            return ENTER_TIME_IS_REGISTERED
-        else:
-            return EXIT_TIME_IS_REGISTERED if exit_time is None else ATTENDANCE_TIME_IS_RECORD
+    try:
+        enter_time, exit_time, _ = attendance_helper(user)
+        if enter_time is not None:
+            if enter_time == datetime.today().day:
+                return ENTER_TIME_IS_REGISTERED
+            else:
+                return EXIT_TIME_IS_REGISTERED if exit_time is None else ATTENDANCE_TIME_IS_RECORD
+    except Attendance.DoesNotExist:
+        pass
     return NO_RECORD
 
 
@@ -112,10 +117,6 @@ def attendance_helper(user: User):
     return enter_time, exit_time, attendance.id
 
 
-from django.views.generic import TemplateView
-from chartjs.views.lines import BaseLineChartView
-
-
 class LineChartJSONView(BaseLineChartView):
     def get_labels(self):
         """Return 7 labels for the x-axis."""
@@ -123,11 +124,15 @@ class LineChartJSONView(BaseLineChartView):
 
     def get_providers(self):
         """Return names of datasets."""
-        return ["سعید حسنی", "امین عامریان", "محسن باقری"]
+        return ["سعید حسنی", "امین عامریان", "محسن باقری",
+                "سید حسین میرحسینی", "نیلوفر عامریان", "وجیهه عامری"]
 
     def get_data(self):
         """Return 3 datasets to plot."""
 
         return [[75, 44, 92, 11, 44, 95, 35],
-                [41, 92, 18, 30, 73, 87, 92],
+                [70, 100, 39, 30, 20, 87, 36],
+                [44, 92, 11, 30, 73, 87, 66],
+                [41, 66, 44, 30, 73, 10, 92],
+                [11, 92, 18, 10, 73, 87, 92],
                 [87, 21, 94, 3, 90, 13, 65]]
