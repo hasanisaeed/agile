@@ -82,23 +82,8 @@
 
     <script type="text/javascript">
         const CHART = document.getElementById('canvas').getContext('2d');
-        console.log("{{ config }}")
         const CONFIG = JSON.parse("{{ config }}".replace(new RegExp("&" + "#" + "x27;", "g"), "'").replace(/'/g, '"'))
-        {#var ctx = document.getElementById("canvas").getContext('2d');#}
-        {#console.log(CONFIG)#}
-
-
-        {#console.log( JSON.parse( '{"type": "line", "data": {"labels": ["A"], "datasets": [{"label": "0", "data": 29,  "borderColor": "#FFF"}]}}'))#}
-        {#console.log('............................')#}
-        {#console.log(JSON.parse( '{"type": "line", "data": {"labels": ["A", "B", "C"], "datasets": [{"label": "0", "data": 29, "border_color": "#000", "background_color": "#FFF"}, {"label": "1", "data": 11, "border_color": "#000", "background_color": "#FFF"}, {"label": "2", "data": 12, "border_color": "#000", "background_color": "#FFF"}]}}'))#}
-        {#const ctx = document.getElementById("canvas").getContext('2d');#}
-        {#new Chart(ctx,#}
-        {#            JSON.parse( '{"type": "bar", "data": {"labels": ["A"], "datasets": [{"label": "0", "data": 29,  "borderColor": "#FFF"}]}}'))#}
-
-        console.log(CONFIG)
-        new Chart(CHART,
-           CONFIG
-        );
+        new Chart(CHART, CONFIG);
     </script>
 {% endblock %}
 
