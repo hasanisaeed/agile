@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load message_filter %}
 {% block title %}
     Burn Down Chart
 {% endblock %}
 
 {% block stylesheet %}
-            <link type="text/css" href="{% static 'css/ball.css' %}" rel="stylesheet" />
+    <link type="text/css" href="{% static 'css/ball.css' %}" rel="stylesheet"/>
     <style type="text/css">
         body {
             background-color: #fcfcfc;
@@ -49,24 +49,22 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container-ball">
-  <div class="ball-container">
-    <div class="ball-shadow">
-    </div>
-    <div class="ball">
-    </div>
-  </div>
-  <div class="ball-container">
-    <div class="ball-shadow">
-    </div>
-    <div class="ball">
-    </div>
-  </div>
-</div>
 
+    <div id="test">
+
+    </div>
+
+    <div class="container-ball">
+        <div class="ball-container">
+            <div class="ball-shadow">
+            </div>
+            <div class="ball">
+            </div>
+        </div>
+    </div>
     <div class="container">
         {% block content %}
-            <h1>BurnDown Chart User by User</h1>
+            <small>- {{ config.data }} -</small>
             <div class="flex-container">
                 <div class="row">
                     <div class="flex-item">
@@ -81,13 +79,26 @@
 {% block javascript %}
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'js/chart.js' %}"></script>
+
     <script type="text/javascript">
-        $.get('{% url "line_chart_json" %}', function (data) {
-            var ctx = $("#canvas").get(0).getContext("2d");
-            new Chart(ctx, {
-                type: 'line', data: data
-            });
-        });
+        const CHART = document.getElementById('canvas').getContext('2d');
+        console.log("{{ config }}")
+        const CONFIG = JSON.parse("{{ config }}".replace(new RegExp("&" + "#" + "x27;", "g"), "'").replace(/'/g, '"'))
+        {#var ctx = document.getElementById("canvas").getContext('2d');#}
+        {#console.log(CONFIG)#}
+
+
+        {#console.log( JSON.parse( '{"type": "line", "data": {"labels": ["A"], "datasets": [{"label": "0", "data": 29,  "borderColor": "#FFF"}]}}'))#}
+        {#console.log('............................')#}
+        {#console.log(JSON.parse( '{"type": "line", "data": {"labels": ["A", "B", "C"], "datasets": [{"label": "0", "data": 29, "border_color": "#000", "background_color": "#FFF"}, {"label": "1", "data": 11, "border_color": "#000", "background_color": "#FFF"}, {"label": "2", "data": 12, "border_color": "#000", "background_color": "#FFF"}]}}'))#}
+        {#const ctx = document.getElementById("canvas").getContext('2d');#}
+        {#new Chart(ctx,#}
+        {#            JSON.parse( '{"type": "bar", "data": {"labels": ["A"], "datasets": [{"label": "0", "data": 29,  "borderColor": "#FFF"}]}}'))#}
+
+        console.log(CONFIG)
+        new Chart(CHART,
+           CONFIG
+        );
     </script>
 {% endblock %}
 

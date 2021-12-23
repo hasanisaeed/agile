@@ -1,4 +1,3 @@
-from chartjs.views.lines import BaseLineChartView
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -6,9 +5,15 @@ from django.utils.datetime_safe import datetime
 from django.views import generic
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
+from django.views.generic import TemplateView
 
 from accounts.forms import SignUpForm
 from accounts.models import Attendance
+
+NO_RECORD = 'card bg-dark text-white'
+ENTER_TIME_IS_REGISTERED = 'card bg-success'
+EXIT_TIME_IS_REGISTERED = 'card bg-danger text-white'
+ATTENDANCE_TIME_IS_RECORD = 'card bg-light'
 
 
 def signup_view(request):
@@ -52,12 +57,6 @@ class DashboardView(generic.TemplateView):
             user_info.append(info)
         context['users'] = user_info
         return context
-
-
-NO_RECORD = 'card bg-dark text-white'
-ENTER_TIME_IS_REGISTERED = 'card bg-success'
-EXIT_TIME_IS_REGISTERED = 'card bg-danger text-white'
-ATTENDANCE_TIME_IS_RECORD = 'card bg-light'
 
 
 def get_status(user: User):
@@ -116,23 +115,3 @@ def attendance_helper(user: User):
     exit_time = ''  # TODO attendance.exit.strftime('%H:%M:%S')
     return enter_time, exit_time, attendance.id
 
-
-class LineChartJSONView(BaseLineChartView):
-    def get_labels(self):
-        """Return 7 labels for the x-axis."""
-        return ["شنبه", "یکشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه", "جمعه"]
-
-    def get_providers(self):
-        """Return names of datasets."""
-        return ["سعید حسنی", "امین عامریان", "محسن باقری",
-                "سید حسین میرحسینی", "نیلوفر عامریان", "وجیهه عامری"]
-
-    def get_data(self):
-        """Return 3 datasets to plot."""
-
-        return [[75, 44, 92, 11, 44, 95, 35],
-                [70, 100, 39, 30, 20, 87, 36],
-                [44, 92, 11, 30, 73, 87, 66],
-                [41, 66, 44, 30, 73, 10, 92],
-                [11, 92, 18, 10, 73, 87, 92],
-                [87, 21, 94, 3, 90, 13, 65]]
