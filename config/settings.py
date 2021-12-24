@@ -122,23 +122,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "assets")
 ]
-print(STATICFILES_DIRS)
+
 STATIC_ROOT = BASE_DIR / 'static'
 
 # LOGIN_REDIRECT_URL = 'home'
 # LOGOUT_REDIRECT_URL = 'home'
 #
-# EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-# EMAIL_FILE_PATH = str(BASE_DIR.joinpath('emails'))
-#
-# STATICFILES_FINDERS = ['compressor.finders.CompressorFinder']
-#
-# COMPRESS_PRECOMPILERS = (
-#     ('text/x-scss', 'django_libsass.SassCompiler'),
-# )
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = str(BASE_DIR.joinpath('emails'))
+
+STATICFILES_FINDER = [
+    'compressor.finders.CompressorFinder'
+]
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
