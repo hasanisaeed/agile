@@ -13,7 +13,7 @@ class ChartModelView(ConfigChart, TemplateView):
         context = super(ChartModelView, self).get_context_data(**kwargs)
 
         from accounts.models import CustomUser
-        users = CustomUser.objects.all()
+        users = CustomUser.objects.filter(is_superuser=False).all()
 
         users_info = []
         for index, user in enumerate(users, 1):
