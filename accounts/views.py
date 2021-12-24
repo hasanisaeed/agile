@@ -3,35 +3,12 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.utils.datetime_safe import datetime
 from django.views import generic
-from django.contrib.auth import login, authenticate
-from django.shortcuts import render, redirect
-
-from accounts.forms import SignUpForm
 from accounts.models import Attendance, CustomUser
 
 NO_RECORD = 'card'
 ENTER_TIME_IS_REGISTERED = 'card bg-success'
 EXIT_TIME_IS_REGISTERED = 'card bg-danger text-white'
 ATTENDANCE_TIME_IS_RECORD = 'card bg-light'
-
-
-def signup_view(request):
-    form = SignUpForm(request.POST)
-    if form.is_valid():
-        user = form.save()
-        user.refresh_from_db()
-        user.profile.first_name = form.cleaned_data.get('first_name')
-        user.profile.last_name = form.cleaned_data.get('last_name')
-        user.profile.email = form.cleaned_data.get('email')
-        user.save()
-        username = form.cleaned_data.get('username')
-        password = form.cleaned_data.get('password1')
-        user = authenticate(username=username, password=password)
-        login(request, user)
-        return redirect('home')
-    else:
-        form = SignUpForm()
-    return render(request, 'registration/signup.html', {'form': form})
 
 
 class DashboardView(generic.TemplateView):
@@ -116,4 +93,3 @@ def attendance_helper(user: CustomUser):
         return enter_time, exit_time, attendance.id
     except Attendance.DoesNotExist:
         return '', '', 0
-
