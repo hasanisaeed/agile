@@ -76,13 +76,14 @@
             {% endif %}
         {% else %}
             <div>
-            <div class="alert alert-info" role="alert">
-                <strong>Permission Error:</strong> Login first!
-            </div> <br/>
-            <a href="{% url 'login' %}">
-                <button type="button" class="btn btn-primary btn-mat-primary">Login</button>
-            </a>
+                <div class="alert alert-info" role="alert">
+                    <strong>Permission Error:</strong> Login first!
+                </div>
+                <br/>
+                <a href="{% url 'login' %}">
+                    <button type="button" class="btn btn-primary btn-mat-primary">Login</button>
+                </a>
             </div>
         {% endif %}
-        </div>
+    </div>
 {% endblock %}
