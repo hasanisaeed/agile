@@ -10,14 +10,18 @@
 @keyframes bounce {
     0% {
         top: 0;
-        transform: scale(1, 1);
+        transform: scale(1,  var(--velocity))/5;
     }
-    80% {
-        transform: scale(0.85, 1);
+    /*80% {*/
+    /*    transform: scale(0.85, 1);*/
+    /*}*/
+    30% {
+            top: var(--velocity)50px;
+        transform: scale(1.1,   var(--velocity))/3;
     }
     100% {
-        top: 120px;
-        transform: scale(1.2, 0.6);
+        top: var(--velocity)10px;
+        transform: scale(1.2, var(--velocity))/10;
     }
 }
 
@@ -31,7 +35,7 @@
     }
 }
 
-.container-ball {
+container-ball {
     position: absolute;
     width: auto;
     height: 200px;
@@ -40,7 +44,7 @@
     left: 0;
 }
 
-.ball-container {
+[class^="ball-container-"] {
     position: absolute;
     height: 200px;
     width: 82px;
@@ -57,10 +61,10 @@
     width: 80px;
     border-radius: 40px;
     /*background: radial-gradient(at 20px 20px, rgba(191, 142, 250, 1) 0%, rgba(58, 16, 105, 1) 100%);*/
-    background-image: url("https://avatars.githubusercontent.com/u/20496196?v=4") ;
-      background-repeat: no-repeat;
-  background-position: 0% 0%;
-  background-size: 100% 100%;
+    background-image: url("https://avatars.githubusercontent.com/u/20496196?v=4");
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: 100% 100%;
 
     box-shadow: inset -10px -10px 10px rgba(0, 0, 0, .6);
     animation-name: bounce;

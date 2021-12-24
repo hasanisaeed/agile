@@ -10,14 +10,26 @@ class ChartModelView(ConfigChart, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(ChartModelView, self).get_context_data(**kwargs)
-        context.update({"config": self.get_config()})
+
+        from django.contrib.auth.models import User
+        users = User.objects.all()
+
+        users_info = []
+        for index, user in enumerate(users, 1):
+            info = {'id': user.id,
+                    'name': user.get_username(),
+                    'velocity': index}
+            users_info.append(info)
+
+        context.update({"config": self.get_config(users_info)})
+        context.update({"users": users_info})
         return context
 
-    def get_config(self):
+    def get_config(self, users):
         datasets = []
-        for i in range(3):
-            dataset = Dataset(label=[str(i)],
-                              data=[random.randint(i, 100)])
+        for user in users:
+            dataset = Dataset(label=user['name'],
+                              data=random.randint(user['id'], 1000))
             datasets.append(dataset)
 
         data = Data(labels=['A'], datasets=datasets)

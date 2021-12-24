@@ -46,12 +46,14 @@
 {% block body %}
 
     <div class="container-ball">
-        <div class="ball-container">
+     {% for user in users %}
+        <div class="ball-container-{{ user.id }}"  style="--velocity: {{ user.velocity }};">
             <div class="ball-shadow">
             </div>
             <div class="ball">
             </div>
         </div>
+    {% endfor %}
     </div>
 
     <div class="container">
