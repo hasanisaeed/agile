@@ -15,9 +15,9 @@
     {% block stylesheet %}{% endblock %}
 
 </head>
-<body style="text-align: center">
+<body>
 <nav class="navbar navbar-expand-lg text-center" style="direction: rtl;">
-    <a class="navbar-brand" href="#">آوای هوشمند رایکا</a>
+    <strong class="text-white font-weight-bold" href="#">Ryca co.</strong>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -27,11 +27,11 @@
         <ul class="navbar-nav mr-auto">
             {% if user.is_authenticated %}
                 <li class="nav-item active">
-                    <a href="{% url 'logout' %}" class="nav-link">خروج</a>
+                    <a href="{% url 'logout' %}" class="nav-link">Logout</a>
                 </li>
             {% endif %}
             <li class="nav-item">
-                <a href="{% url 'password_reset' %}" class="nav-link">بازیابی رمز</a>
+                <a href="{% url 'password_reset' %}" class="nav-link">Reset Password</a>
             </li>
             <li class="nav-item">
                 <span class="bg-success pr-1 pl-1 text-white rounded">{{ user.username }}</span>
