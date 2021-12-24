@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect
 from accounts.forms import SignUpForm
 from accounts.models import Attendance, CustomUser
 
-NO_RECORD = 'card bg-dark text-white'
+NO_RECORD = 'card'
 ENTER_TIME_IS_REGISTERED = 'card bg-success'
 EXIT_TIME_IS_REGISTERED = 'card bg-danger text-white'
 ATTENDANCE_TIME_IS_RECORD = 'card bg-light'
@@ -40,11 +40,12 @@ class DashboardView(generic.TemplateView):
     def get_context_data(self, **kwargs):
 
         context = super(DashboardView, self).get_context_data(**kwargs)
-        users = CustomUser.objects.all()
+        users = CustomUser.objects.filter(is_superuser=False).all()
 
         user_info = []
         for user in users:
             info = {'id': user.id,
+                    'avatar': user.avatar,
                     'name': user.get_full_name(),
                     'last_login': user.last_login,
                     'status': get_status(user)}
@@ -108,8 +109,11 @@ def apply_attendance(request, pk):
 
 
 def attendance_helper(user: CustomUser):
-    attendance = user.attendance.filter(user=user).latest('enter')
-    enter_time = attendance.enter.strftime('%H:%M:%S')
-    exit_time = ''  # TODO attendance.exit.strftime('%H:%M:%S')
-    return enter_time, exit_time, attendance.id
+    try:
+        attendance = user.attendance.filter(user=user).latest('enter')
+        enter_time = attendance.enter.strftime('%H:%M:%S')
+        exit_time = ''  # TODO attendance.exit.strftime('%H:%M:%S')
+        return enter_time, exit_time, attendance.id
+    except Attendance.DoesNotExist:
+        return '', '', 0
 
