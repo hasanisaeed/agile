@@ -7,6 +7,9 @@ from django.db import models
 class CustomUser(AbstractUser):
     avatar = models.CharField(max_length=300, null=True, blank=True)
 
+    class Meta:
+        db_table = 'users'
+
 
 class Attendance(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, related_name='attendance')
