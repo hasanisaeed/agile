@@ -1,83 +1,3 @@
-/*@keyframes moveit {*/
-/*    0% {*/
-/*        left: 0;*/
-/*    }*/
-/*    100% {*/
-/*        left: 100%*/
-/*    }*/
-/*}*/
-
-/*@keyframes bounce {*/
-/*    0% {*/
-/*        top: 0;*/
-/*        transform: scale(1,  1) ;*/
-/*    }*/
-/*    80% {*/
-/*        transform: scale(0.85, 1);*/
-/*    }*/
-
-/*    100% {*/
-/*        top:120px;*/
-/*        transform: scale(1.2, 1.1) ;*/
-/*    }*/
-/*}*/
-
-/*@keyframes scaleit {*/
-/*    0% {*/
-/*        transform: scale(0.4, 0.1);*/
-/*        opacity: 0.3;*/
-/*    }*/
-/*    100% {*/
-/*        transform: scale(1, 0.2);*/
-/*    }*/
-/*}*/
-
-/*container-ball {*/
-/*    position: absolute;*/
-/*    width: auto;*/
-/*    height: 200px;*/
-/*    margin-top: 10%;*/
-/*    right: 82px;*/
-/*    left: 0;*/
-/*}*/
-
-/*[class^="ball-container-"] {*/
-/*    position: absolute;*/
-/*    height: 200px;*/
-/*    width: 82px;*/
-/*    animation-name: moveit;*/
-/*    animation-duration: 8s;*/
-/*    animation-direction: alternate;*/
-/*    animation-timing-function: linear;*/
-/*    animation-iteration-count: infinite;*/
-/*}*/
-
-/*.ball {*/
-/*    position: absolute;*/
-/*    height: 80px;*/
-/*    width: 80px;*/
-/*    border-radius: 40px;*/
-/*    !*background: radial-gradient(at 20px 20px, rgba(191, 142, 250, 1) 0%, rgba(58, 16, 105, 1) 100%);*!*/
-/*    background-image: url("https://avatars.githubusercontent.com/u/20496196?v=4");*/
-/*    background-repeat: no-repeat;*/
-/*    background-position: 0 0;*/
-/*    background-size: 100% 100%;*/
-
-/*    box-shadow: inset -10px -10px 10px rgba(0, 0, 0, .6);*/
-/*    animation-name: bounce;*/
-/*    animation-duration: 0.5s;*/
-/*    animation-direction: alternate;*/
-/*    animation-timing-function: cubic-bezier(.5, 0, 1, .5);*/
-/*    animation-iteration-count: infinite;*/
-/*}*/
-
-
-body {
-    background-color: #fcfcfc;
-    text-align: center;
-    margin: 0;
-}
-
 .flex-container {
     padding: 0;
     margin: 0;
@@ -94,7 +14,6 @@ body {
     padding: 5px;
     margin: 10px;
     line-height: 20px;
-    color: white;
     font-weight: bold;
     text-align: center;
 }
@@ -118,11 +37,13 @@ body {
 }
 
 [class^="ball-"] {
-    background: #3f0084;
+    background-color: #a600ff;
     background-image: var(--background-image);
     background-repeat: no-repeat;
     background-position: 0 0;
     background-size: 100% 100%;
+    border-color: gold;
+    border-width: thick;
     font-size: 50px;
     width: 1em;
     height: 1em;
