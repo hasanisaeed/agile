@@ -12,10 +12,34 @@ class CustomUser(AbstractUser):
 
 
 class Attendance(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='attendance')
+    user = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, related_name='attendance')
     enter = models.DateTimeField(null=True)
     exit = models.DateTimeField(null=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return f"Enter: {self.enter} Exit: {self.exit}"
+
+    class Meta:
+        db_table = 'attendance'
+
+
+class Sprint(models.Model):
+    start = models.DateTimeField()
+    end = models.DateTimeField()
+    total = models.IntegerField(default=0)
+
+    class Meta:
+        db_table = 'sprint'
+
+
+class StoryPoint(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, related_name='points')
+    sprint = models.ForeignKey(Sprint, on_delete=models.CASCADE)
+    date = models.DateTimeField()
+
+    # Story Point(S.P) value
+    sp = models.SmallIntegerField(default=0)
+
+    class Meta:
+        db_table = 'story_point'
