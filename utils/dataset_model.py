@@ -1,4 +1,5 @@
 import random
+import time
 
 from django.views.generic import TemplateView
 
@@ -33,7 +34,11 @@ class ChartModelView(ConfigChart, TemplateView):
                               data=random.randint(user['id'], 1000))
             datasets.append(dataset)
 
-        data = Data(labels=['A'], datasets=datasets)
+        labels = []
+        for i in range(7):
+            date = time.strftime("%Y%m%d-%H%M%S")
+            labels.append(date)
+        data = Data(labels=labels, datasets=datasets)
         config = ConfigChart(data=data)
 
         return config.convert_to_json()
