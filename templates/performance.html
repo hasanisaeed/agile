@@ -7,54 +7,22 @@
 
 {% block stylesheet %}
     <link type="text/css" href="{% static 'css/ball.css' %}" rel="stylesheet"/>
-    <style type="text/css">
-        body {
-            background-color: #fcfcfc;
-            text-align: center;
-            margin: 0;
-        }
-
-        .flex-container {
-            padding: 0;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .row {
-            width: auto;
-        }
-
-        .flex-item {
-            padding: 5px;
-            margin: 10px;
-            line-height: 20px;
-            color: white;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        .item {
-            width: 80vw;
-            height: 80vh;
-        }
-    </style>
 {% endblock %}
 
 
 {% block body %}
 
-    <div class="container-ball">
-     {% for user in users %}
-        <div class="ball-container-{{ user.id }}"  style="--velocity: {{ user.velocity }};">
-            <div class="ball-shadow">
-            </div>
-            <div class="ball">
-            </div>
-        </div>
-    {% endfor %}
-    </div>
+{#    <div class="container-ball">#}
+{#        {% for user in users %}#}
+{##}
+{#            <div id="{{ user.id }}" class="ball-container-{{ user.id }}">#}
+{#                <div class="ball-shadow">#}
+{#                </div>#}
+{#                <div class="ball" style="--velocity: {{ user.velocity }};">#}
+{#                </div>#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#    </div>#}
 
     <div class="container">
         {% block content %}
@@ -63,6 +31,11 @@
                 <div class="row">
                     <div class="flex-item">
                         <canvas id="canvas" class="item"></canvas>
+                        <div class="balls">
+                            {% for user in users %}
+                            <div class="ball-{{ user.id }}" style="--background-image: url({{ user.avatar }})"></div>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -73,11 +46,22 @@
 {% block javascript %}
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'js/chart.js' %}"></script>
+    <script src="{% static 'js/gsap.min.js' %}"></script>
 
     <script type="text/javascript">
+        {% for user in users %}
+          TweenMax.staggerTo(`.ball-{{user.id}}`, Number(`{{ user.velocity }}`), {
+            y: '150px',
+            ease: Bounce.easeOut,
+            yoyoEase: Power3.easeOut,
+            repeat: -1,
+            repeatDelay: 1
+        }, 0.2);
+        {% endfor %}
         const CHART = document.getElementById('canvas').getContext('2d');
         const CONFIG = JSON.parse("{{ config }}".replace(new RegExp("&" + "#" + "x27;", "g"), "'").replace(/'/g, '"'))
         new Chart(CHART, CONFIG);
+
     </script>
 {% endblock %}
 

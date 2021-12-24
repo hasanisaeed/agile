@@ -18,7 +18,8 @@ class ChartModelView(ConfigChart, TemplateView):
         for index, user in enumerate(users, 1):
             info = {'id': user.id,
                     'name': user.get_username(),
-                    'velocity': index}
+                    'avatar': 'https://avatars.githubusercontent.com/u/20496196?v=4',
+                    'velocity': random.randint(1, 5)}
             users_info.append(info)
 
         context.update({"config": self.get_config(users_info)})
