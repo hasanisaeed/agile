@@ -16,7 +16,7 @@
 
 </head>
 <body style="text-align: center">
-<nav class="navbar navbar-dark navbar-expand-lg text-center" style="direction: rtl;">
+<nav class="navbar navbar-expand-lg text-center" style="direction: rtl;">
     <a class="navbar-brand" href="#">آوای هوشمند رایکا</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,14 +25,14 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            {#            {% if user.is_authenticated %}#}
-            <li class="nav-item active">
-                <a href="{% url 'logout' %}" class="nav-link">خروج</a>
+            {% if user.is_authenticated %}
+                <li class="nav-item active">
+                    <a href="{% url 'logout' %}" class="nav-link">خروج</a>
+                </li>
+            {% endif %}
+            <li class="nav-item">
+                <a href="{% url 'password_reset' %}" class="nav-link">بازیابی رمز</a>
             </li>
-            {#            {% endif %}#}
-            {#            <li class="nav-item">#}
-            {#                <a href="{% url 'password_reset' %}" class="nav-link">بازیابی رمز</a>#}
-            {#            </li>#}
             <li class="nav-item">
                 <span class="bg-success pr-1 pl-1 text-white rounded">{{ user.username }}</span>
             </li>
