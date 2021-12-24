@@ -10,3 +10,4 @@ urlpatterns = \
      path('accounts/', include('django.contrib.auth.urls')),
      path('', DashboardView.as_view(), name='home'),
      ]
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

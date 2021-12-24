@@ -128,7 +128,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "assets")
 ]
 
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # LOGIN_REDIRECT_URL = 'home'
 # LOGOUT_REDIRECT_URL = 'home'
@@ -136,7 +136,7 @@ STATIC_ROOT = BASE_DIR / 'static'
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = str(BASE_DIR.joinpath('emails'))
 
-STATICFILES_FINDER = [
+STATICFILES_FINDERS = [
     'compressor.finders.CompressorFinder'
 ]
 COMPRESS_PRECOMPILERS = (
