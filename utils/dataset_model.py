@@ -11,14 +11,14 @@ class ChartModelView(ConfigChart, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ChartModelView, self).get_context_data(**kwargs)
 
-        from django.contrib.auth.models import User
-        users = User.objects.all()
+        from accounts.models import CustomUser
+        users = CustomUser.objects.all()
 
         users_info = []
         for index, user in enumerate(users, 1):
             info = {'id': user.id,
                     'name': user.get_username(),
-                    'avatar': 'https://avatars.githubusercontent.com/u/20496196?v=4',
+                    'avatar': user.avatar,
                     'velocity': random.randint(1, 5)}
             users_info.append(info)
 
