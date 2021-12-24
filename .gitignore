@@ -7,5 +7,6 @@ note
 migrations
 *.pyc
 static/CACHE
+__pycache__
 accounts/__pycache__
 accounts/templatetags/__pycache__/
