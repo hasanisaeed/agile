@@ -44,7 +44,7 @@ class Data:
 
 
 class Dataset:
-    def __init__(self, label='', data=0, border_color='#000', bg_color='#FFF'):
+    def __init__(self, label='', data=0, border_color='#000', bg_color='#fe9100'):
         self.label = [label]
         self.data = [data]
         self.border_color = border_color
@@ -65,8 +65,8 @@ class Dataset:
     def repr_json(self):
         return dict(label=self.label,
                     data=self.data,
-                    # borderColor=self.border_color,
-                    # backgroundColor=self.background_color
+                    borderColor=self.border_color,
+                    backgroundColor=self.background_color
                     )
 
 
