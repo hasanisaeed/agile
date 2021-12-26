@@ -2,7 +2,7 @@ import json
 
 
 class ConfigChart:
-    def __init__(self, chart_type='bar', data=None, options=None):
+    def __init__(self, chart_type='line', data=None, options=None):
         self.chart_type = chart_type
         self.data = data
         self.options = options
@@ -45,8 +45,12 @@ class Data:
 
 class Dataset:
     def __init__(self, label='', data=0, border_color='#000', bg_color='#fe9100'):
-        self.label = [label]
-        self.data = [data]
+        self.label = label
+        self.data = data
+
+        print(f'>> Label: {self.label}')
+        print(f'>> Data: {self.data}')
+
         self.border_color = border_color
         self.background_color = bg_color
 
@@ -66,8 +70,7 @@ class Dataset:
         return dict(label=self.label,
                     data=self.data,
                     borderColor=self.border_color,
-                    backgroundColor=self.background_color
-                    )
+                    backgroundColor=self.background_color)
 
 
 class ComplexEncoder(json.JSONEncoder):

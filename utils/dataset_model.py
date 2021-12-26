@@ -30,8 +30,9 @@ class ChartModelView(ConfigChart, TemplateView):
     def get_config(self, users):
         datasets = []
         for user in users:
+            data = [1, 4, 2, 3, 1, 8, 5]
             dataset = Dataset(label=user['name'],
-                              data=random.randint(user['id'], 1000))
+                              data=data)
             datasets.append(dataset)
 
         labels = []
