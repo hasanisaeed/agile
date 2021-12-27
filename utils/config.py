@@ -44,12 +44,9 @@ class Data:
 
 
 class Dataset:
-    def __init__(self, label='', data=0, border_color='#000', bg_color='#fe9100'):
+    def __init__(self, label='', data=0, bg_color='transparent', border_color='#fff'):
         self.label = label
         self.data = data
-
-        print(f'>> Label: {self.label}')
-        print(f'>> Data: {self.data}')
 
         self.border_color = border_color
         self.background_color = bg_color
