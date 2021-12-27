@@ -1,4 +1,4 @@
-from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import User, AbstractUser
 
 from django.db import models
@@ -6,6 +6,8 @@ from django.db import models
 
 class CustomUser(AbstractUser):
     avatar = models.CharField(max_length=300, null=True, blank=True)
+    # Every users has it's own color
+    color = models.CharField(max_length=9, null=False, blank=False)
 
     class Meta:
         db_table = 'users'
@@ -43,3 +45,4 @@ class StoryPoint(models.Model):
 
     class Meta:
         db_table = 'story_point'
+        unique_together = ['user', 'date']
