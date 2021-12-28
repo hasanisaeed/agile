@@ -14,16 +14,11 @@ class ChartModelView(ConfigChart, TemplateView):
 
     def __init__(self):
         super().__init__()
-        self.sprint = Sprint.objects.  first()
+        self.sprint = Sprint.objects.first()
         # self.sprint = Sprint.objects.filter(start__gte=datetime.datetime.now()).first()
-
-    def add_to_log(self, msg):
-        with open('log.txt', 'a') as f:
-            f.write(msg)
 
     def get_velocity(self, user, sum_sp) -> float:
         user_sp = self.get_data(user)
-        self.add_to_log(', '.join(user_sp))
         return float('{0:.2f}'.format(sum(user_sp) / sum_sp * 100))
 
     def get_context_data(self, **kwargs):
@@ -35,12 +30,7 @@ class ChartModelView(ConfigChart, TemplateView):
         print(self.sprint)
         sum_story_point = StoryPoint.objects.filter(sprint=self.sprint).aggregate(Sum('sp'))['sp__sum']
         users_info = []
-        self.add_to_log(f'\nTEST\n')
-        self.add_to_log(f'\n{sum_story_point}\n')
         for index, user in enumerate(users, 1):
-            self.add_to_log(f'\nid: {user.id} -> '
-                            f'sum_story_poin: {sum_story_point} '
-                            f'\n***\n')
             info = {'id': user.id,
                     'name': user.get_username(),
                     'avatar': user.avatar,
