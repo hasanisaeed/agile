@@ -45,10 +45,17 @@ class ChartModelView(ConfigChart, TemplateView):
         story_point = StoryPoint.objects.filter(sprint=self.sprint, user=user).values_list('sp', flat=True)
         return list(story_point)
 
+    def get_chart_labels(self):
+        start_date = self.sprint.start.date()
+        end_date = self.sprint.end.date()
+
+        delta = end_date - start_date
+
+        labels = [start_date + datetime.timedelta(days=i) for i in range(delta.days + 1)]
+        return labels
+
     def get_config(self, users):
         datasets = []
-        sprint = Sprint.objects.filter(start__lte=datetime.datetime.now()).first()
-
         for user in users:
             data = self.get_data(user['id'])
             dataset = Dataset(label=user['name'],
@@ -56,10 +63,7 @@ class ChartModelView(ConfigChart, TemplateView):
                               border_color=user['color'])
             datasets.append(dataset)
 
-        chart_labels = list(StoryPoint.objects.filter(date__range=[sprint.start, sprint.end])
-                            .annotate(str_date=Cast(TruncSecond('date', DateTimeField()), CharField()))
-                            .values_list('str_date', flat=True))
-
+        chart_labels = self.get_chart_labels()
         data = Data(labels=chart_labels, datasets=datasets)
         config = ConfigChart(data=data)
 
