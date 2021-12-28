@@ -21,7 +21,7 @@ class ChartModelView(ConfigChart, TemplateView):
 
         normalized_sp = [i / sum_sp for i in user_sp]
 
-        return float('{0:.2f}'.format(sum(normalized_sp)))
+        return float('{0:.2f}'.format(1 - sum(normalized_sp)))
 
     def get_context_data(self, **kwargs):
         context = super(ChartModelView, self).get_context_data(**kwargs)
