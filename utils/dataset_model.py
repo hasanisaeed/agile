@@ -18,7 +18,10 @@ class ChartModelView(ConfigChart, TemplateView):
 
     def get_velocity(self, user, sum_sp) -> float:
         user_sp = self.get_data(user)
-        return float('{0:.2f}'.format(sum(user_sp) / sum_sp * 100))
+
+        normalized_sp = [i / sum_sp for i in user_sp]
+
+        return float('{0:.2f}'.format(sum(normalized_sp)))
 
     def get_context_data(self, **kwargs):
         context = super(ChartModelView, self).get_context_data(**kwargs)
@@ -51,7 +54,7 @@ class ChartModelView(ConfigChart, TemplateView):
 
         delta = end_date - start_date
 
-        labels = [(start_date + datetime.timedelta(days=i)) .strftime('%Y, %d %b')
+        labels = [(start_date + datetime.timedelta(days=i)).strftime('%Y, %d %b')
                   for i in range(delta.days + 1)]
         return labels
 
@@ -65,7 +68,6 @@ class ChartModelView(ConfigChart, TemplateView):
             datasets.append(dataset)
 
         chart_labels = self.get_chart_labels()
-        print(chart_labels)
         data = Data(labels=chart_labels, datasets=datasets)
         config = ConfigChart(data=data)
 
