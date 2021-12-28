@@ -18,7 +18,7 @@ class Command(BaseCommand):
         with open('data.json', "r") as f:
             obj = json.loads(f.read())
             date = obj['date']
-            sprint = Sprint.objects.filter(start__gte=date).first()
+            sprint = Sprint.objects.latest()
             print(sprint)
             if not sprint:
                 sys.stdout.write("*** Please setup sprint date.\n")
