@@ -19,7 +19,6 @@ class Command(BaseCommand):
             obj = json.loads(f.read())
             date = obj['date']
             sprint = Sprint.objects.last()
-            print(sprint)
             if not sprint:
                 sys.stdout.write("*** Please setup sprint date.\n")
                 return
