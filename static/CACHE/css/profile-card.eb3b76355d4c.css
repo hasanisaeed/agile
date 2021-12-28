@@ -1,0 +1,103 @@
+/* line 1, static/profile-card.scss */
+.profile-card-wrapper {
+  direction: rtl;
+  text-align: right; }
+  /* line 4, static/profile-card.scss */
+  .profile-card-wrapper .card {
+    background-color: #fff;
+    width: 280px;
+    border-radius: 33px;
+    padding: 1rem !important; }
+  /* line 11, static/profile-card.scss */
+  .profile-card-wrapper .top-container {
+    display: flex;
+    align-items: center; }
+  /* line 16, static/profile-card.scss */
+  .profile-card-wrapper .profile-image {
+    border-radius: 10px;
+    border: 2px solid #5957f9; }
+  /* line 21, static/profile-card.scss */
+  .profile-card-wrapper .name {
+    font-size: 15px;
+    font-weight: bold;
+    color: #272727;
+    position: relative;
+    top: 8px; }
+  /* line 29, static/profile-card.scss */
+  .profile-card-wrapper .mail {
+    font-size: 14px;
+    color: grey;
+    position: relative;
+    top: 2px; }
+  /* line 36, static/profile-card.scss */
+  .profile-card-wrapper .middle-container {
+    background-color: #eee;
+    border-radius: 12px; }
+  /* line 41, static/profile-card.scss */
+  .profile-card-wrapper .middle-container:hover {
+    border: 1px solid #5957f9; }
+  /* line 45, static/profile-card.scss */
+  .profile-card-wrapper .dollar-div {
+    background-color: #5957f9;
+    padding: 12px;
+    border-radius: 10px; }
+  /* line 51, static/profile-card.scss */
+  .profile-card-wrapper .round-div {
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center; }
+  /* line 62, static/profile-card.scss */
+  .profile-card-wrapper .dollar {
+    font-size: 16px !important;
+    color: #5957f9 !important;
+    font-weight: bold !important; }
+  /* line 68, static/profile-card.scss */
+  .profile-card-wrapper .current-balance {
+    font-size: 15px;
+    color: #272727;
+    font-weight: bold; }
+  /* line 74, static/profile-card.scss */
+  .profile-card-wrapper .amount {
+    color: #5957f9;
+    font-size: 16px;
+    font-weight: bold; }
+  /* line 80, static/profile-card.scss */
+  .profile-card-wrapper .dollar-sign {
+    font-size: 16px;
+    color: #e07524;
+    font-weight: bold; }
+  /* line 86, static/profile-card.scss */
+  .profile-card-wrapper .recent-border {
+    border-right: 2px solid #5957f9;
+    display: flex;
+    align-items: center; }
+  /* line 92, static/profile-card.scss */
+  .profile-card-wrapper .recent-border:hover {
+    border-bottom: 1px solid #dee2e6 !important; }
+  /* line 96, static/profile-card.scss */
+  .profile-card-wrapper .recent-orders {
+    font-size: 16px;
+    font-weight: 700;
+    color: #5957f9;
+    margin-right: 2px; }
+  /* line 103, static/profile-card.scss */
+  .profile-card-wrapper .wishlist {
+    font-size: 16px;
+    font-weight: 700;
+    color: #272727; }
+  /* line 109, static/profile-card.scss */
+  .profile-card-wrapper .wishlist-border:hover {
+    border-bottom: 1px solid #dee2e6 !important; }
+  /* line 113, static/profile-card.scss */
+  .profile-card-wrapper .fashion-studio {
+    font-size: 16px;
+    font-weight: 700;
+    color: #272727; }
+  /* line 119, static/profile-card.scss */
+  .profile-card-wrapper .fashion-studio-border:hover {
+    border-bottom: 1px solid #dee2e6 !important; }

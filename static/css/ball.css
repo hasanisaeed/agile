@@ -1,0 +1,51 @@
+.flex-container {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.row {
+    width: auto;
+}
+
+.flex-item {
+    padding: 5px;
+    margin: 10px;
+    line-height: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.item {
+    width: 80vw;
+    height: 80vh;
+}
+
+.balls {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 300px;
+    max-height: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+[class^="ball-"] {
+    background-color: #a600ff;
+    background-image: var(--background-image);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: 100% 100%;
+    border-color: gold;
+    border-width: thick;
+    font-size: 50px;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+}

@@ -5,7 +5,6 @@ note
 *.log
 migrations
 *.pyc
-static
 __pycache__
 accounts/__pycache__
 accounts/templatetags/__pycache__/
