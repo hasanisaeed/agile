@@ -14,8 +14,7 @@ class ChartModelView(ConfigChart, TemplateView):
 
     def __init__(self):
         super().__init__()
-        self.sprint = Sprint.objects.first()
-        # self.sprint = Sprint.objects.filter(start__gte=datetime.datetime.now()).first()
+        self.sprint = Sprint.objects.filter(end__gte=datetime.datetime.now()).first()
 
     def get_velocity(self, user, sum_sp) -> float:
         user_sp = self.get_data(user)
