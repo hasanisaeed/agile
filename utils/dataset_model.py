@@ -14,7 +14,8 @@ class ChartModelView(ConfigChart, TemplateView):
 
     def __init__(self):
         super().__init__()
-        self.sprint = Sprint.objects.filter(start__gte=datetime.datetime.now()).first()
+        self.sprint = Sprint.objects.  first()
+        # self.sprint = Sprint.objects.filter(start__gte=datetime.datetime.now()).first()
 
     def add_to_log(self, msg):
         with open('log.txt', 'a') as f:
