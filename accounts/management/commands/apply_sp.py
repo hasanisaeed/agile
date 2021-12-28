@@ -6,6 +6,8 @@ import json
 import sys
 
 from django.core.management.base import BaseCommand
+from django.db import IntegrityError
+from django.db.models import Q
 
 from accounts.models import Sprint, StoryPoint, CustomUser
 
@@ -24,7 +26,15 @@ class Command(BaseCommand):
             for item in obj['data']:
                 username = item['user']
                 user = CustomUser.objects.get(username=username)
-                StoryPoint.objects.create(user=user,
-                                          sprint=sprint,
-                                          date=date,
-                                          sp=item['sp'])
+                try:
+                    StoryPoint.objects.create(user=user,
+                                              sprint=sprint,
+                                              date=date,
+                                              sp=item['sp'])
+                except IntegrityError as e:
+                    StoryPoint.objects.filter(Q(user=user) &
+                                              Q(date=date)).delete()
+                    StoryPoint.objects.create(user=user,
+                                              sprint=sprint,
+                                              date=date,
+                                              sp=item['sp'])
