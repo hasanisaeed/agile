@@ -34,7 +34,8 @@ class ChartModelView(ConfigChart, TemplateView):
         print(self.sprint)
         sum_story_point = StoryPoint.objects.filter(sprint=self.sprint).aggregate(Sum('sp'))['sp__sum']
         users_info = []
-
+        self.add_to_log(f'\nTEST\n')
+        self.add_to_log(f'\n{sum_story_point}\n')
         for index, user in enumerate(users, 1):
             try:
                 self.add_to_log(f'\nid: {user.id} -> '
