@@ -1,0 +1,8 @@
+body {
+    text-align: center;
+    margin: 0;
+}
+.theme-dark  {
+    background: #140d20;
+    color: antiquewhite;
+}
