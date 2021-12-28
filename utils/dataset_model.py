@@ -37,18 +37,15 @@ class ChartModelView(ConfigChart, TemplateView):
         self.add_to_log(f'\nTEST\n')
         self.add_to_log(f'\n{sum_story_point}\n')
         for index, user in enumerate(users, 1):
-            try:
-                self.add_to_log(f'\nid: {user.id} -> '
-                                f'sum_story_poin: {sum_story_point} '
-                                f'\n***\n')
-                info = {'id': user.id,
-                        'name': user.get_username(),
-                        'avatar': user.avatar,
-                        'color': user.color,
-                        'velocity': self.get_velocity(user.id, sum_story_point)}
-                users_info.append(info)
-            except:
-                pass
+            self.add_to_log(f'\nid: {user.id} -> '
+                            f'sum_story_poin: {sum_story_point} '
+                            f'\n***\n')
+            info = {'id': user.id,
+                    'name': user.get_username(),
+                    'avatar': user.avatar,
+                    'color': user.color,
+                    'velocity': self.get_velocity(user.id, sum_story_point)}
+            users_info.append(info)
 
         context.update({"config": self.get_config(users_info)})
         context.update({"users": users_info})
