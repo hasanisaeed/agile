@@ -54,8 +54,8 @@ class ChartModelView(ConfigChart, TemplateView):
 
         delta = end_date - start_date
 
-        labels = [(start_date + datetime.timedelta(days=i)).strftime('%Y, %d %b')
-                  for i in range(delta.days + 1)]
+        labels = [(start_date + datetime.timedelta(days=i+1)).strftime('%Y, %d %b')
+                  for i in range(delta.days )]
         return labels
 
     def get_config(self, users):
