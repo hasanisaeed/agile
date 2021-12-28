@@ -2,7 +2,7 @@ import json
 
 
 class ConfigChart:
-    def __init__(self, chart_type='line', data=None, options=None):
+    def __init__(self, chart_type='bar', data=None, options=None):
         self.chart_type = chart_type
         self.data = data
         self.options = options
