@@ -33,12 +33,15 @@ class ChartModelView(ConfigChart, TemplateView):
         sum_story_point = StoryPoint.objects.filter(sprint=self.sprint).aggregate(Sum('sp'))['sp__sum']
         users_info = []
         for index, user in enumerate(users, 1):
-            info = {'id': user.id,
-                    'name': user.get_username(),
-                    'avatar': user.avatar,
-                    'color': user.color,
-                    'velocity': self.get_velocity(user.id, sum_story_point)}
-            users_info.append(info)
+            try:
+                info = {'id': user.id,
+                        'name': user.get_username(),
+                        'avatar': user.avatar,
+                        'color': user.color,
+                        'velocity': self.get_velocity(user.id, sum_story_point)}
+                users_info.append(info)
+            except:
+                pass
 
         context.update({"config": self.get_config(users_info)})
         context.update({"users": users_info})
