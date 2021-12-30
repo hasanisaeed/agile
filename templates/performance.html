@@ -12,6 +12,7 @@
         body {
             background: #140d20;
         }
+
         .card-right-chart {
             background-color: #040020;
         }
@@ -78,12 +79,12 @@
                                     {% endfor %}
                                     </tbody>
                                 </table>
-                                                                <div class="balls">
-                                                                    {% for user in users %}
-                                                                        <div class="ball-{{ user.id }}"
-                                                                             style="--background-image: url({{ user.avatar }})"></div>
-                                                                    {% endfor %}
-                                                                </div>
+                                <div class="balls">
+                                    {% for user in users %}
+                                        <div class="ball-{{ user.id }}"
+                                             style="--background-image: url({{ user.avatar }})"></div>
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
                     </div>
