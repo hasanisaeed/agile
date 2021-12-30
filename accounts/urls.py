@@ -1,7 +1,7 @@
 from django.urls import path
 
-from utils.dataset_model import ChartModelView
-from .views import DashboardView, apply_attendance
+from .views.chart import ChartModelView
+from .views.dashboard import DashboardView, apply_attendance
 
 urlpatterns = [
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
