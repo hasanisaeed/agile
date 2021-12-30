@@ -65,27 +65,26 @@ body {
     margin: 20px;
 }
 
+li {
+    list-style-type: none;
+}
+
 .days li:nth-child(odd) {
     visibility: hidden;
-    list-style-type: none;
 }
 
 .squares li {
     background-color: #ebedf0;
-    list-style-type: none;
 }
 
 .squares li[data-level="1"] {
     background-color: #c6e48b;
-    list-style-type: none;
 }
 
 .squares li[data-level="2"] {
     background-color: #7bc96f;
-    list-style-type: none;
 }
 
 .squares li[data-level="3"] {
     background-color: #196127;
-    list-style-type: none;
 }
