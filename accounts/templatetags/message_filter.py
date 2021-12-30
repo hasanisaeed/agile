@@ -31,7 +31,7 @@ def get_item_list(v, index):
     try:
         return v[index]
     except:
-        return 1
+        return 0
 
 
 register.filter('text', text)
