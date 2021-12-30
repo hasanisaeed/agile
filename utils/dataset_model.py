@@ -1,7 +1,7 @@
 import datetime
 
-from django.db.models import CharField, DateTimeField, Sum
-from django.db.models.functions import Cast, TruncSecond
+from django.db.models import CharField, DateTimeField, Sum, F, IntegerField, DurationField, ExpressionWrapper
+from django.db.models.functions import Cast, TruncSecond, ExtractDay, TruncDate, Now
 
 from django.views.generic import TemplateView
 
@@ -10,10 +10,14 @@ from utils.config import ConfigChart, Data, Dataset
 
 
 class SprintInfo:
+
     def get_all_sprint_info(self):
-        sprints = Sprint.objects.select_related('story_point').all()
-        print(sprints)
-        return sprints
+        sprints = StoryPoint.objects \
+            .values('sprint').annotate(remaining=Sum('sp')) \
+            .annotate(days=ExpressionWrapper(F('sprint__end') - F('sprint__start'), output_field=DurationField())) \
+            .annotate(remaining_days=ExpressionWrapper(Now() - F('sprint__end'), output_field=DurationField())) \
+            .values_list('sprint__total', 'remaining', 'days', 'remaining_days')
+        return list(sprints)
 
 
 class ChartModelView(ConfigChart, TemplateView):
@@ -52,6 +56,7 @@ class ChartModelView(ConfigChart, TemplateView):
         context.update({"config": self.get_config(users_info)})
         context.update({"users": users_info})
         context.update({"sprints": sprints})
+        print(sprints)
         return context
 
     def get_data(self, user):
