@@ -24,13 +24,13 @@
 }
 
 .balls {
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    transform: translateX(-50%);
-    width: 400px;
-    height: 300px;
-    max-height: 300px;
+    /*position: absolute;*/
+    /*left: 50%;*/
+    /*bottom: 0;*/
+    /*transform: translateX(-50%);*/
+    /*width: 400px;*/
+    /*height: 300px;*/
+    /*max-height: 300px;*/
     display: flex;
     flex-direction: row;
     justify-content: space-between;

@@ -11,24 +11,78 @@
         body {
             background: #140d20;
         }
+        .card-right-chart{
+            background-color: #040020;
+        }
+        .remaining-sp{
+            color: gold;
+            text-align: center;
+        }
+        .label{
+            padding-right: 3px;
+            border-radius: 5px;
+            padding-left: 3px;
+        }
+        .label-success{
+            background-color: green;
+            color: white;
+        }
     </style>
 {% endblock %}
 
 
 {% block body %}
     <div class="theme-dark">
-        <div class="container">
+        <div class="container-fluid">
             {% block content %}
-                <h1> BurnDown Chart User by User</h1>
-                <div class="flex-container">
-                    <div class="row">
-                        <div class="flex-item">
-                            <canvas id="canvas" class="item"></canvas>
-                            <div class="balls">
-                                {% for user in users %}
-                                    <div class="ball-{{ user.id }}"
-                                         style="--background-image: url({{ user.avatar }})"></div>
-                                {% endfor %}
+                <div class="row">
+                    <div class="col-8 text-center">
+                        <h3> BurnDown Chart User by User</h3>
+                        <canvas id="canvas" width="auto" height="auto"></canvas>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="card text-white card-right-chart">
+                            <div class="card-header">
+                                <strong>Sprint Statistics</strong>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-hover text-center">
+  <thead>
+    <tr>
+      <th scope="col">S. ID</th>
+      <th scope="col">Total</th>
+      <th scope="col">Remaining</th>
+      <th scope="col">Days</th>
+    </tr>
+  </thead>
+  <tbody>
+
+   {% for sprint in sprints %}
+    <tr>
+      <th scope="row">#{{ forloop.counter }}</th>
+      <td>
+          <strong class="remaining-sp">
+              {{ sprint.remaining }}
+          </strong>
+      </td>
+      <td>
+          <span>
+              {{ sprint.total }}
+          </span>
+      </td>
+      <td><span class="label label-success">14</span></td>
+    </tr>
+   {% endfor %}
+
+  </tbody>
+</table>
+{#                                <div class="balls">#}
+{#                                    {% for user in users %}#}
+{#                                        <div class="ball-{{ user.id }}"#}
+{#                                             style="--background-image: url({{ user.avatar }})"></div>#}
+{#                                    {% endfor %}#}
+{#                                </div>#}
                             </div>
                         </div>
                     </div>
