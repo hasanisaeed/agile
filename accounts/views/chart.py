@@ -1,7 +1,7 @@
 import datetime
 
-from django.db.models import CharField, DateTimeField, Sum, F, IntegerField, DurationField, ExpressionWrapper
-from django.db.models.functions import Cast, TruncSecond, ExtractDay, TruncDate, Now
+from django.db.models import Sum, F,  DurationField, ExpressionWrapper
+from django.db.models.functions import  Now
 
 from django.views.generic import TemplateView
 
