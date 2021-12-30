@@ -79,12 +79,13 @@
                                     {% endfor %}
                                     </tbody>
                                 </table>
-                                <div class="balls">
-                                    {% for user in users %}
-                                        <div class="ball-{{ user.id }}"
-                                             style="--background-image: url({{ user.avatar }})"></div>
-                                    {% endfor %}
-                                </div>
+{#                                <!-- User Image Bouncing --> #}
+                                {#                                <div class="balls">#}
+                                {#                                    {% for user in users %}#}
+                                {#                                        <div class="ball-{{ user.id }}"#}
+                                {#                                             style="--background-image: url({{ user.avatar }})"></div>#}
+                                {#                                    {% endfor %}#}
+                                {#                                </div>#}
                             </div>
                         </div>
                     </div>
@@ -134,23 +135,25 @@
     <script type="text/javascript">
         /* Graph Section */
         const squares = document.querySelector('.squares');
-        for (var i = 1; i < 365; i++) {
-            const level = Math.floor(Math.random() * 3);
-            squares.insertAdjacentHTML('beforeend', `<li data-level="${level}"></li>`);
-        }
 
-        {% for user in users %}
-            TweenMax.staggerTo(`.ball-{{user.id}}`, Number(`{{ user.velocity }}`), {
-                y: '150px',
-                ease: Bounce.easeOut,
-                yoyoEase: Power3.easeOut,
-                repeat: -1,
-                repeatDelay: 1
-            }, 0.2);
+        {% for i in "x"|rjust:"364" %}
+            squares.insertAdjacentHTML('beforeend', `<li data-level={{ graph | get_item_list:forloop.counter0 }}></li>`);
         {% endfor %}
+
+        /* User Image Bouncing */
+        {#        {% for user in users %}#}
+        {#            TweenMax.staggerTo(`.ball-{{user.id}}`, Number(`{{ user.velocity }}`), {#}
+        {#                y: '150px',#}
+        {#                ease: Bounce.easeOut,#}
+        {#                yoyoEase: Power3.easeOut,#}
+        {#                repeat: -1,#}
+        {#                repeatDelay: 1#}
+        {#            }, 0.2);#}
+        {#        {% endfor %}#}
+
+        /* Chart Section */
         const CHART = document.getElementById('canvas').getContext('2d');
         const CONFIG = JSON.parse("{{ config }}".replace(new RegExp("&" + "#" + "x27;", "g"), "'").replace(/'/g, '"'))
-        console.log(CONFIG)
         new Chart(CHART, CONFIG);
 
     </script>

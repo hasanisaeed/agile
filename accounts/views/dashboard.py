@@ -1,9 +1,9 @@
+import datetime as dt
 from django.contrib import messages
 
 from django.http import HttpResponseRedirect
-from django.utils.datetime_safe import datetime
 from django.views import generic
-from accounts.models import Attendance, CustomUser
+from accounts.models import Attendance, CustomUser, StoryPoint
 
 NO_RECORD = 'card'
 ENTER_TIME_IS_REGISTERED = 'card bg-success'
@@ -39,7 +39,7 @@ def get_status(user: CustomUser):
     try:
         enter_time, exit_time, _ = attendance_helper(user)
         if enter_time is not None:
-            if enter_time == datetime.today().day:
+            if enter_time == dt.datetime.today().day:
                 return ENTER_TIME_IS_REGISTERED
             else:
                 return EXIT_TIME_IS_REGISTERED if exit_time is None else ATTENDANCE_TIME_IS_RECORD
@@ -58,17 +58,17 @@ def apply_attendance(request, pk):
             # If datetime is today and the time of attendance has not been set before.
             enter_time, exit_time, attendance_id = attendance_helper(user)
             if enter_time is not None:
-                if enter_time != datetime.today().day:
+                if enter_time != dt.datetime.today().day:
                     # Set the attendance time
                     Attendance.objects.create(user=user,
-                                              enter=datetime.now())
+                                              enter=dt.datetime.now())
                     messages.success(request, {'user': pk,
                                                'text': 'حصور ثبت شد.'})
 
                 else:
                     # toggle: then check for exit time.
                     if exit_time is None:
-                        Attendance.objects.filter(id=attendance_id).update(exit=datetime.now())
+                        Attendance.objects.filter(id=attendance_id).update(exit=dt.datetime.now())
                         messages.success(request, {'user': pk,
                                                    'text': 'ساعت خروج ثبت شد.'})
                     else:
@@ -77,7 +77,7 @@ def apply_attendance(request, pk):
         except KeyError:
             # Set the attendance time
             Attendance.objects.create(user=user,
-                                      enter=datetime.now())
+                                      enter=dt.datetime.now())
             messages.success(request, {'user': pk,
                                        'text': 'حصور ثبت شد.'})
 
@@ -93,3 +93,6 @@ def attendance_helper(user: CustomUser):
         return enter_time, exit_time, attendance.id
     except Attendance.DoesNotExist:
         return '', '', 0
+
+
+

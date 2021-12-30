@@ -1,7 +1,7 @@
-import datetime
+import datetime as dt
 
-from django.db.models import Sum, F,  DurationField, ExpressionWrapper
-from django.db.models.functions import  Now
+from django.db.models import Sum, F, DurationField, ExpressionWrapper
+from django.db.models.functions import Now
 
 from django.views.generic import TemplateView
 
@@ -11,7 +11,8 @@ from utils.config import ConfigChart, Data, Dataset
 
 class SprintInfo:
 
-    def get_all_sprint_info(self):
+    @staticmethod
+    def get_all_sprint_info():
         sprints = StoryPoint.objects \
             .values('sprint').annotate(remaining=Sum('sp')) \
             .annotate(days=ExpressionWrapper(F('sprint__end') - F('sprint__start'), output_field=DurationField())) \
@@ -27,7 +28,7 @@ class ChartModelView(ConfigChart, TemplateView):
 
     def __init__(self):
         super().__init__()
-        self.sprint = Sprint.objects.filter(end__gte=datetime.datetime.now()).first()
+        self.sprint = Sprint.objects.filter(end__gte=dt.datetime.now()).first()
 
     def get_velocity(self, user, sum_sp) -> float:
         user_sp = self.get_data(user)
@@ -38,9 +39,11 @@ class ChartModelView(ConfigChart, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(ChartModelView, self).get_context_data(**kwargs)
+
+        # Retrieve 1 year ago  story point for drawing graph(heatmap)
+        graph_data = GraphDiagram.get_data()
         # Retrieve all sprint info
-        sprint_info = SprintInfo()
-        sprints = sprint_info.get_all_sprint_info()
+        sprints = SprintInfo.get_all_sprint_info()
 
         from accounts.models import CustomUser
         users = CustomUser.objects.filter(is_superuser=False).all()
@@ -58,7 +61,8 @@ class ChartModelView(ConfigChart, TemplateView):
         context.update({"config": self.get_config(users_info)})
         context.update({"users": users_info})
         context.update({"sprints": sprints})
-        print(sprints)
+        context.update({"graph": graph_data})
+
         return context
 
     def get_data(self, user):
@@ -71,7 +75,7 @@ class ChartModelView(ConfigChart, TemplateView):
 
         delta = end_date - start_date
 
-        labels = [(start_date + datetime.timedelta(days=i + 1)).strftime('%Y, %d %b')
+        labels = [(start_date + dt.timedelta(days=i + 1)).strftime('%Y, %d %b')
                   for i in range(delta.days)]
         return labels
 
@@ -89,3 +93,22 @@ class ChartModelView(ConfigChart, TemplateView):
         config = ConfigChart(data=data)
 
         return config.convert_to_json()
+
+
+class GraphDiagram:
+
+    @staticmethod
+    def get_data():
+        now = dt.datetime.now()
+        from django.db.models import Avg, Case, When
+        from django.db.models import SmallIntegerField
+        story_point = StoryPoint.objects.filter(date__range=[now - dt.timedelta(days=365), now]) \
+            .values('date') \
+            .annotate(total=Avg('sp')) \
+            .annotate(level=Case(When(total__lte=1, then=1),
+                                 When(total__range=[1, 5], then=2),
+                                 When(total__gte=5, then=3),
+                                 default=0,
+                                 output_field=SmallIntegerField())) \
+            .values_list('level', flat=True)
+        return list(story_point)

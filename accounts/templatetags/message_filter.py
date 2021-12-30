@@ -26,7 +26,16 @@ def get_days(timedelta):
     return 'F'
 
 
+def get_item_list(v, index):
+    print(index)
+    try:
+        return v[index]
+    except:
+        return 1
+
+
 register.filter('text', text)
 register.filter('user_id', user_id)
 register.filter('to_json', to_json)
 register.filter('get_days', get_days)
+register.filter('get_item_list', get_item_list)
