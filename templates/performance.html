@@ -56,7 +56,7 @@
                                     <tr>
                                         <th scope="col">S. ID</th>
                                         <th scope="col">Total</th>
-                                        <th scope="col">Remaining</th>
+                                        <th scope="col">Done</th>
                                         <th scope="col">Days</th>
                                         <th scope="col">R. Days</th>
                                     </tr>
@@ -67,14 +67,14 @@
                                         <tr>
                                             <th scope="row">#{{ forloop.counter }}</th>
                                             <td>
-                                                <strong class="remaining-sp">
-                                                    {# {{ sprint.remaining }} #}
+                                                <strong class="text-success">
+                                                    {# {{ sprint. sprint__total }} #}
                                                     {{ sprint.0 }}
                                                 </strong>
                                             </td>
                                             <td>
                                               <span>
-                                                  {# {{ sprint.sprint__total }} #}
+                                                  {# {{ sprint.remaining }} #}
                                                   {{ sprint.1 }}
                                               </span>
                                             </td>
@@ -85,7 +85,7 @@
                                             </span>
                                             </td>
                                             <td>
-                                                <span>
+                                                <span class="text-warning">
                                                 {# {{ sprint.days }} #}
                                                 {{ sprint.3 | get_days }}
                                             </span>

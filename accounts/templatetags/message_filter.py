@@ -23,9 +23,9 @@ def to_json(v):
 
 def get_days(timedelta):
     days = timedelta.days
-    if days>0:
+    if days > 0:
         return timedelta.days
-    return 'Finished'
+    return 'F'
 
 
 register.filter('text', text)
