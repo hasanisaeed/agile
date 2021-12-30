@@ -13,7 +13,7 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-from config.env import P_SECRET_KEY
+from config.env import P_SECRET_KEY, IS_DEBUG
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = P_SECRET_KEY
 AUTH_USER_MODEL = 'accounts.CustomUser'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = IS_DEBUG
 
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 

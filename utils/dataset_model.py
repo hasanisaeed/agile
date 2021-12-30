@@ -9,6 +9,13 @@ from accounts.models import StoryPoint, Sprint
 from utils.config import ConfigChart, Data, Dataset
 
 
+class SprintInfo:
+    def get_all_sprint_info(self):
+        sprints = Sprint.objects.select_related('story_point').all()
+        print(sprints)
+        return sprints
+
+
 class ChartModelView(ConfigChart, TemplateView):
     template_name = 'performance.html'
 
@@ -25,11 +32,13 @@ class ChartModelView(ConfigChart, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(ChartModelView, self).get_context_data(**kwargs)
+        # Retrieve all sprint info
+        sprint_info = SprintInfo()
+        sprints = sprint_info.get_all_sprint_info()
 
         from accounts.models import CustomUser
         users = CustomUser.objects.filter(is_superuser=False).all()
 
-        print(self.sprint)
         sum_story_point = StoryPoint.objects.filter(sprint=self.sprint).aggregate(Sum('sp'))['sp__sum']
         users_info = []
         for index, user in enumerate(users, 1):
@@ -42,6 +51,7 @@ class ChartModelView(ConfigChart, TemplateView):
 
         context.update({"config": self.get_config(users_info)})
         context.update({"users": users_info})
+        context.update({"sprints": sprints})
         return context
 
     def get_data(self, user):
@@ -54,8 +64,8 @@ class ChartModelView(ConfigChart, TemplateView):
 
         delta = end_date - start_date
 
-        labels = [(start_date + datetime.timedelta(days=i+1)).strftime('%Y, %d %b')
-                  for i in range(delta.days )]
+        labels = [(start_date + datetime.timedelta(days=i + 1)).strftime('%Y, %d %b')
+                  for i in range(delta.days)]
         return labels
 
     def get_config(self, users):
