@@ -15,7 +15,7 @@ class SprintInfo:
         sprints = StoryPoint.objects \
             .values('sprint').annotate(remaining=Sum('sp')) \
             .annotate(days=ExpressionWrapper(F('sprint__end') - F('sprint__start'), output_field=DurationField())) \
-            .annotate(remaining_days=ExpressionWrapper(Now() - F('sprint__end'), output_field=DurationField())) \
+            .annotate(remaining_days=ExpressionWrapper(Now() - F('sprint__start'), output_field=DurationField())) \
             .values_list('sprint__total', 'remaining', 'days', 'remaining_days')
         return list(sprints)
 
