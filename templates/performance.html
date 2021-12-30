@@ -14,7 +14,19 @@
         }
 
         .card-right-chart {
-            background-color: #040020;
+            background-color: #1c0446;
+        }
+
+        .table-bordered {
+            border: none !important;
+        }
+
+        .table-bordered td, .table-bordered th {
+            border: none !important;
+        }
+
+        .card-header {
+            border-bottom: 1px solid rgb(20 13 32) !important;
         }
     </style>
 {% endblock %}
@@ -33,10 +45,13 @@
                     <div class="col-4">
                         <div class="card text-white card-right-chart">
                             <div class="card-header">
-                                <h5>Sprint Statistics</h5>
+                                <h5>
+                                    <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                    Sprint Statistics
+                                </h5>
                             </div>
                             <div class="card-body">
-                                <table class="table table-hover text-center text-white">
+                                <table class="table table-hover text-center text-white table-bordered">
                                     <thead>
                                     <tr>
                                         <th scope="col">S. ID</th>
@@ -79,7 +94,7 @@
                                     {% endfor %}
                                     </tbody>
                                 </table>
-{#                                <!-- User Image Bouncing --> #}
+                                {#                                <!-- User Image Bouncing --> #}
                                 {#                                <div class="balls">#}
                                 {#                                    {% for user in users %}#}
                                 {#                                        <div class="ball-{{ user.id }}"#}
