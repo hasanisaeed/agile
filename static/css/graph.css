@@ -66,17 +66,17 @@ li {
 }
 
 .squares li {
-    background-color: #0a1c00;
+    background-color: #21133a;
 }
 
 .squares li[data-level="1"] {
-    background-color: #133201;
+    background-color: #44012b;
 }
 
 .squares li[data-level="2"] {
-    background-color: #2a7b02;
+    background-color: #820353;
 }
 
 .squares li[data-level="3"] {
-    background-color: #37ff00;
+    background-color: #ff0099;
 }
