@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/realsaeedhassani/agile/compare/v1.2.0...v1.3.0) (2021-12-30)
+
+
+### Features
+
+* awesome graph chart ([dc83d05](https://github.com/realsaeedhassani/agile/commit/dc83d05e14638b7217e77ea7c221fcc6dca01c10))
+
+
+### Bug Fixes
+
+* avatar ([73792d4](https://github.com/realsaeedhassani/agile/commit/73792d4b4dd3b2371174130c1fd28a424f270688))
+* default bg when not exists ([ee60c68](https://github.com/realsaeedhassani/agile/commit/ee60c6816a1ba367f6667817190a815a506a7d00))
+
 ## [1.2.0](https://github.com/realsaeedhassani/attendance-system/compare/v1.1.0...v1.2.0) (2021-12-30)
 
 
