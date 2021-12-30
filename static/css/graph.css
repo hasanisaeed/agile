@@ -21,7 +21,7 @@
     grid-template-areas: "empty months"
                        "days squares";
     grid-template-columns: auto 1fr;
-    grid-gap: 10px;
+    grid-gap: 5px;
 }
 
 .months {
@@ -52,14 +52,6 @@
     grid-auto-columns: var(--square-size);
 }
 
-
-/* Other styling */
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: 12px;
-}
-
 .graph {
     padding: 20px;
     margin: 20px;
@@ -74,17 +66,17 @@ li {
 }
 
 .squares li {
-    background-color: #ebedf0;
+    background-color: #090018;
 }
 
 .squares li[data-level="1"] {
-    background-color: #c6e48b;
+    background-color: #140038;
 }
 
 .squares li[data-level="2"] {
-    background-color: #7bc96f;
+    background-color: #280078;
 }
 
 .squares li[data-level="3"] {
-    background-color: #196127;
+    background-color: #5200d2;
 }
