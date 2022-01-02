@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/realsaeedhassani/agile/compare/v1.3.0...v1.4.0) (2022-01-02)
+
+
+### Features
+
+* tostaticstics story point(sp) fodone by user in current spsprint ([8ed9b4a](https://github.com/realsaeedhassani/agile/commit/8ed9b4add0cc63f20f2accde16ea29a44913dd03))
+
+
+### Bug Fixes
+
+* exception when date label is empty ([09ae83d](https://github.com/realsaeedhassani/agile/commit/09ae83d215c0c84052056c9b2913ae4f147f4ab3))
+* typo errors ([c1d311b](https://github.com/realsaeedhassani/agile/commit/c1d311b3cf6f3897c6c23e38cbd2d6a5bcde1ecf))
+
 ## [1.3.0](https://github.com/realsaeedhassani/agile/compare/v1.2.0...v1.3.0) (2021-12-30)
 
 
