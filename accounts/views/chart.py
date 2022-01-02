@@ -32,7 +32,7 @@ class UserStatistics:
         statistics = StoryPoint.objects.filter(sprint=sprint).values('user') \
             .annotate(total=Sum('sp')) \
             .annotate(name=Concat('user__first_name', Value(' '), 'user__last_name')) \
-            .order_by('total')
+            .order_by('-total')
 
         return statistics
 
