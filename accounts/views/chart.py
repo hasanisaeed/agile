@@ -70,15 +70,17 @@ class ChartModelView(ConfigChart, TemplateView):
         return list(story_point)
 
     def get_chart_labels(self):
-        start_date = self.sprint.start.date()
-        end_date = self.sprint.end.date()
+        try:
+            start_date = self.sprint.start.date()
+            end_date = self.sprint.end.date()
 
-        delta = end_date - start_date
+            delta = end_date - start_date
 
-        labels = [(start_date + dt.timedelta(days=i + 1)).strftime('%Y, %d %b')
-                  for i in range(delta.days)]
-        return labels
-
+            labels = [(start_date + dt.timedelta(days=i + 1)).strftime('%Y, %d %b')
+                      for i in range(delta.days)]
+            return labels
+        except:
+            return []
     def get_config(self, users):
         datasets = []
         for user in users:
