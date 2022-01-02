@@ -29,10 +29,10 @@ class UserStatistics:
         """
         Return last sprint statistics for users
         """
-        print(sprint)
         statistics = StoryPoint.objects.filter(sprint=sprint).values('user') \
             .annotate(total=Sum('sp')) \
-            .annotate(name=Concat('user__first_name', Value(' '), 'user__last_name'))
+            .annotate(name=Concat('user__first_name', Value(' '), 'user__last_name')) \
+            .order_by('total')
 
         return statistics
 
