@@ -1,7 +1,8 @@
 import datetime as dt
 
-from django.db.models import Sum, F, DurationField, ExpressionWrapper
-from django.db.models.functions import Now
+from django.db.models import Sum, F, DurationField, ExpressionWrapper, Value
+from django.db.models.functions import Now, Concat
+from django.forms import IntegerField
 
 from django.views.generic import TemplateView
 
@@ -16,11 +17,24 @@ class SprintInfo:
         sprints = StoryPoint.objects \
             .values('sprint').annotate(remaining=Sum('sp')) \
             .annotate(days=ExpressionWrapper(F('sprint__end') - F('sprint__start'), output_field=DurationField())) \
-            .annotate(remaining_days=ExpressionWrapper(
-            (F('sprint__end') - F('sprint__start')) -
-            (Now() - F('sprint__start')), output_field=DurationField())) \
+            .annotate(remaining_days=ExpressionWrapper((F('sprint__end') - F('sprint__start')) -
+                                                       (Now() - F('sprint__start')), output_field=DurationField())) \
             .values_list('sprint__total', 'remaining', 'days', 'remaining_days')
         return list(sprints)
+
+
+class UserStatistics:
+    @staticmethod
+    def statistics(sprint):
+        """
+        Return last sprint statistics for users
+        """
+        print(sprint)
+        statistics = StoryPoint.objects.filter(sprint=sprint).values('user') \
+            .annotate(total=Sum('sp')) \
+            .annotate(name=Concat('user__first_name', Value(' '), 'user__last_name'))
+
+        return statistics
 
 
 class ChartModelView(ConfigChart, TemplateView):
@@ -45,6 +59,8 @@ class ChartModelView(ConfigChart, TemplateView):
         # Retrieve all sprint info
         sprints = SprintInfo.get_all_sprint_info()
 
+        user_statistics = UserStatistics.statistics(self.sprint)
+        print(user_statistics)
         from accounts.models import CustomUser
         users = CustomUser.objects.filter(is_superuser=False).all()
 
@@ -58,10 +74,11 @@ class ChartModelView(ConfigChart, TemplateView):
                     'velocity': self.get_velocity(user.id, sum_story_point)}
             users_info.append(info)
 
-        context.update({"config": self.get_config(users_info)})
-        context.update({"users": users_info})
-        context.update({"sprints": sprints})
-        context.update({"graph": graph_data})
+        context.update({'config': self.get_config(users_info)})
+        context.update({'users': users_info})
+        context.update({'sprints': sprints})
+        context.update({'graph': graph_data})
+        context.update({'user_statistics': user_statistics})
 
         return context
 
@@ -81,6 +98,7 @@ class ChartModelView(ConfigChart, TemplateView):
             return labels
         except:
             return []
+
     def get_config(self, users):
         datasets = []
         for user in users:

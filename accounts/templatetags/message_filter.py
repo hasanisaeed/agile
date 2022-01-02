@@ -27,7 +27,6 @@ def get_days(timedelta):
 
 
 def get_item_list(v, index):
-    print(index)
     try:
         return v[index]
     except:
