@@ -8,3 +8,4 @@ migrations
 __pycache__
 accounts/__pycache__
 accounts/templatetags/__pycache__/
+data.json
