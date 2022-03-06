@@ -122,7 +122,6 @@ All notable changes to this project will be documented in this file. See [standa
 * message filter ([6fc0683](https://github.com/realsaeedhassani/attendance-system/commit/6fc0683a05078668b0c4032788448e1feee42704))
 * profile card ([a35b8d3](https://github.com/realsaeedhassani/attendance-system/commit/a35b8d3cef1df3ce430bc6e1efe657b1c2f41cee))
 * register enter/exit user attendance ([4a571eb](https://github.com/realsaeedhassani/attendance-system/commit/4a571ebe9c00111698ef0ce000e85bc8ef9db794))
-* vuejs template added; ([ace5f26](https://github.com/realsaeedhassani/attendance-system/commit/ace5f26795906499d5a27ae159204a4916294f26))
 
 
 ### Bug Fixes
