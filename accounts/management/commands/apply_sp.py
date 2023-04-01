@@ -30,7 +30,7 @@ class Command(BaseCommand):
                                               sprint=sprint,
                                               date=date,
                                               sp=item['sp'])
-                except IntegrityError as e:
+                except IntegrityError:
                     StoryPoint.objects.filter(Q(user=user) &
                                               Q(date=date)).delete()
                     StoryPoint.objects.create(user=user,
